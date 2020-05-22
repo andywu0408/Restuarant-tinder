@@ -26,15 +26,21 @@ const App = () => {
   return (
     <main>
       <Switch>
-        <Route
+        {/* <Route
           path='/'
           component={() => <HomePage roomID={roomID} />}
+          exact
+        /> */}
+        <Route //FIXME
+          path='/'
+          component={() => <GameRoom roomID={roomID} />}
           exact
         />
         <Route
           path={`/gameroom/${roomID}`}
           component={() => <GameRoom roomID={roomID} />}
         />
+
         <Route component={ErrorPage} />
       </Switch>
     </main>

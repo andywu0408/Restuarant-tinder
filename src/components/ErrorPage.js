@@ -4,10 +4,10 @@ const ErrorPage = () => {
 
 
   return (
-    <div>ERROR PAGE</div>
+    <div style={{ paddingTop: '30vh', height: '100vh', backgroundColor: 'lightgray', fontSize: 40, color: 'red', fontWeight: 'bolder', textAlign: 'center' }}>
+      404 ERROR: This site doesn't exist. Please double check your url.
+    </div>
   );
 }
-
-const Styles = {};
 
 export default ErrorPage;

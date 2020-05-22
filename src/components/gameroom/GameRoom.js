@@ -20,6 +20,7 @@ const Restaurants = [
 const GameRoom = () => {
   // @restaurants: list of restaurants from Yelp API
   const [restaurants, setRestaurants] = useState([]);
+  const [numCards, setNumCards] = useState(0);
 
   const showSuccess = () => {
     message.success('Successfuly liked the restaurant', 0.5);
@@ -63,10 +64,9 @@ const GameRoom = () => {
 
   );
 }
-
 const Styles = {
   mainContainer: {
-    background: 'linear-gradient(#ff7e5f, #feb47b)',
+    background: 'linear-gradient(#e66465, #9198e5)',
     width: '100vw',
     minHeight: '100vh',
     overflow: 'hidden',
