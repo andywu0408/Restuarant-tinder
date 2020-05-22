@@ -1,10 +1,10 @@
-import React, { usestate } from 'react';
+import React, { useState } from 'react';
 
 const GameRoom = () => {
 
 
   return (
-    <div>HI</div>
+    <div>GAME ROOM</div>
   );
 }
 

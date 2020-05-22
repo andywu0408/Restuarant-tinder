@@ -1,69 +1,44 @@
-import React, { usestate } from 'react';
-import { Button, Modal } from 'antd';
-import homePageBackground from './assets/homePageBackground.jpg';
+import React, { useState, useEffect } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import HomePage from './components/HomePage';
+import GameRoom from './components/gameroom/GameRoom';
+import ErrorPage from './components/ErrorPage';
 
 //NOTE: This is the home screen
 const App = () => {
-
-  const showModal = () => {
-    Modal.info({
-      title: 'Visit the link to start playing! You can also share the link with your friends so they can join!',
-      content: (
-        <a href="https://www.google.com/">https://www.google.com</a>
-      ),
-      onOk() { },
-      keyboard: true,
-      width: '50%',
-      centered: true
-    });
+  const [roomID, setRoomID] = useState(null);
+  console.log("In app, room id is " + roomID)
+  const generateRoomID = length => {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
   }
+
+  useEffect(() => {
+    const randomStr = generateRoomID(16);
+    setRoomID(randomStr);
+  }, []);
+
   return (
-    <main
-      style={Styles.mainContainer}
-    >
-      <h1 style={Styles.title}>
-        Welcome to Restaurant Tinder!
-      </h1>
-      <Button
-        type="primary"
-        block
-        ghost
-        style={Styles.startButton}
-        onClick={showModal}
-      >
-        Start New Game!
-      </Button>
+    <main>
+      <Switch>
+        <Route
+          path='/'
+          component={() => <HomePage roomID={roomID} />}
+          exact
+        />
+        <Route
+          path={`/gameroom/${roomID}`}
+          component={() => <GameRoom roomID={roomID} />}
+        />
+        <Route component={ErrorPage} />
+      </Switch>
     </main>
   );
-}
-
-const Styles = {
-  mainContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 60,
-    height: '100vh',
-    backgroundImage: `url(${homePageBackground})`,
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-  },
-  startButton: {
-    height: 120,
-    fontSize: 40,
-    borderColor: 'white',
-    borderWidth: 5,
-  },
-  title: {
-    fontSize: 80,
-    color: 'white',
-    marginBottom: 200,
-  },
-  modal:{
-    backgroundColor: 'pink'
-  }
 }
 
 export default App;
