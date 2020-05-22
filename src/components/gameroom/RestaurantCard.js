@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Card } from 'antd';
+
+const { Meta } = Card;
 
 const RestaurantCard = props => {
   const {
     name,
-    pic,
+    picURL,
     rating,
     numReviews,
     priceRange,
@@ -11,7 +14,40 @@ const RestaurantCard = props => {
   } = props;
 
   return (
-    <div>RestaurantCard</div>
+    <Card
+      hoverable
+      headStyle={{ backgroundColor: 'white' }}
+      bodyStyle={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
+      style={{
+        position: 'fixed', width: 300, padding: 24,
+        bordeRadius: '1px',
+        left: '50%',
+        top: '50%',
+        transform: 'translate(-50%, -50%)'
+      }}
+      extra={
+        <div style={{ fontSize: 14 }}>
+          Chosen {numTimesChosen} Times!
+        </div>}
+      cover={<img style={{ height: '60%', objectFit: 'contain' }} alt="example" src={picURL} />}
+    >
+      <Meta
+        title={
+          <div
+            style={{ color: 'red', fontSize: 36 }}
+          >
+            {name}
+          </div>
+        }
+        description={
+          <div>
+            <h3 style={{ fontSize: 18 }}>Rating: {rating}</h3>
+            <h3 style={{ fontSize: 18 }}>Number of Reviews: {numReviews}</h3>
+            <h3 style={{ fontSize: 18 }}>Price Range: {priceRange}</h3>
+          </div>
+        }
+      />
+    </Card>
   );
 }
 

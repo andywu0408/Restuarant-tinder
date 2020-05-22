@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, Modal } from 'antd';
 import homePageBackground from '../assets/homePageBackground.jpg';
+import RestaurantCard from '../components/gameroom/RestaurantCard';
 
 //NOTE: This is the home screen
 const HomePage = props => {
