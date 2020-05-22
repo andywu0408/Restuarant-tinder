@@ -18,7 +18,13 @@ const RestaurantCard = props => {
       hoverable
       headStyle={{ backgroundColor: 'white' }}
       bodyStyle={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
-      style={{ width: 300, padding: 24 }}
+      style={{
+        position: 'fixed', width: 300, padding: 24,
+        bordeRadius: '1px',
+        left: '50%',
+        top: '50%',
+        transform: 'translate(-50%, -50%)'
+      }}
       extra={
         <div style={{ fontSize: 14 }}>
           Chosen {numTimesChosen} Times!
