@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import TinderCard from 'react-tinder-card';
 import RestaurantCard from './RestaurantCard';
-import { message } from 'antd';
+import { message, Spin } from 'antd';
 
-const Restaurants = [
-  { name: 'McDonalds1', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
-  { name: 'McDonalds2', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
-  { name: 'McDonalds3', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
-  { name: 'McDonalds4', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
-  { name: 'McDonalds5', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
-  { name: 'McDonalds6', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
-  { name: 'McDonalds7', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
-  { name: 'McDonalds8', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
-  { name: 'McDonalds9', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
-  { name: 'McDonalds10', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
+// const Restaurants = [
+//   { name: 'McDonalds1', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
+//   { name: 'McDonalds2', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
+//   { name: 'McDonalds3', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
+//   { name: 'McDonalds4', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
+//   { name: 'McDonalds5', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
+//   { name: 'McDonalds6', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
+//   { name: 'McDonalds7', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
+//   { name: 'McDonalds8', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
+//   { name: 'McDonalds9', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
+//   { name: 'McDonalds10', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
 
-];
+// ];
 
 const GameRoom = () => {
-  // @restaurants: list of restaurants from Yelp API
-  const [restaurants, setRestaurants] = useState([]);
+
+  const [Restaurants, setRestaurants] = useState([]);
+  //const [Restaurants, setRestaurants] = useState([{ name: 'McDonalds1', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' }]);
   const [numCards, setNumCards] = useState(0);
 
   const showSuccess = () => {
@@ -50,16 +51,25 @@ const GameRoom = () => {
       </div>
 
       <div style={Styles.cardContainer}>
-        {Restaurants.map((restaurant) => (
-          <TinderCard key={restaurant.name} onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen(restaurant.name)} preventSwipe={['up', 'down']}>
-            <RestaurantCard
-              name={restaurant.name}
-              rating={restaurant.rating} numReviews={restaurant.numReviews}
-              priceRange={restaurant.priceRange} picURL={restaurant.picURL}
-              numTimesChosen={restaurant.numTimesChosen} />
-          </TinderCard>
-        ))}
+        {Restaurants.length != 0
+          ? (Restaurants.map((restaurant) => (
+            <TinderCard key={restaurant.name} onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen(restaurant.name)} preventSwipe={['up', 'down']}>
+              <RestaurantCard
+                name={restaurant.name}
+                rating={restaurant.rating} numReviews={restaurant.numReviews}
+                priceRange={restaurant.priceRange} picURL={restaurant.picURL}
+                numTimesChosen={restaurant.numTimesChosen} />
+            </TinderCard>
+          )))
+          : (
+            <div style={Styles.noCard}>
+              <Spin size='large'>
+                <h1 style={Styles.noCard}>There is no availabe card right now...</h1>
+              </Spin>
+            </div>
+          )}
       </div>
+
     </div>
 
   );
@@ -71,6 +81,13 @@ const Styles = {
     minHeight: '100vh',
     overflow: 'hidden',
     padding: '20px 300px'
+  },
+  noCard: {
+    position: 'fixed', width: 300, padding: 24,
+    bordeRadius: '1px',
+    left: '50%',
+    top: '50%',
+    transform: 'translate(-50%, -50%)'
   },
   title: {
     // fontFamily: 'Damion, sans-serif',
