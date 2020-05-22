@@ -32,7 +32,7 @@ const App = () => {
         onClick={showModal}
       >
         Start New Game!
-    </Button>
+      </Button>
     </main>
   );
 }
