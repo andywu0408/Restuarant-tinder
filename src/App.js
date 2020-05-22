@@ -1,9 +1,22 @@
-import React from 'react';
-import { Button } from 'antd';
+import React, { usestate } from 'react';
+import { Button, Modal } from 'antd';
 import homePageBackground from './assets/homePageBackground.jpg';
 
 //NOTE: This is the home screen
-function App() {
+const App = () => {
+
+  const showModal = () => {
+    Modal.info({
+      title: 'Visit the link to start playing! You can also share the link with your friends so they can join!',
+      content: (
+        <a href="https://www.google.com/">https://www.google.com</a>
+      ),
+      onOk() { },
+      keyboard: true,
+      width: '50%',
+      centered: true
+    });
+  }
   return (
     <main
       style={Styles.mainContainer}
@@ -14,7 +27,9 @@ function App() {
       <Button
         type="primary"
         block
+        ghost
         style={Styles.startButton}
+        onClick={showModal}
       >
         Start New Game!
     </Button>
@@ -38,7 +53,6 @@ const Styles = {
   startButton: {
     height: 120,
     fontSize: 40,
-    backgroundColor: 'transparent',
     borderColor: 'white',
     borderWidth: 5,
   },
@@ -46,6 +60,9 @@ const Styles = {
     fontSize: 80,
     color: 'white',
     marginBottom: 200,
+  },
+  modal:{
+    backgroundColor: 'pink'
   }
 }
 
