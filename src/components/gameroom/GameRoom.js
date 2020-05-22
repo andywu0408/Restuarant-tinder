@@ -6,7 +6,9 @@ const GameRoom = () => {
   const [restaurants, setRestaurants] = useState([]);
 
   return (
-    <div>
+    <div
+      style={Styles.mainContainer}
+    >
       GAME ROOM
       <RestaurantCard />
     </div>
@@ -14,6 +16,11 @@ const GameRoom = () => {
   );
 }
 
-const Styles = {};
+const Styles = {
+  mainContainer: {
+    height: '100vh',
+    background: 'linear-gradient(#ff7e5f, #feb47b)',
+  }
+};
 
 export default GameRoom;
