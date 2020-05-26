@@ -3,6 +3,9 @@ import TinderCard from 'react-tinder-card';
 import RestaurantCard from './RestaurantCard';
 import { message, Spin } from 'antd';
 
+//FIXME: fetching yelp API + setting restaurant list + setting numCards should be done in
+// the selection screen(not created yet) and passed in as props. 
+// home screen -> selection screen -> gameRoom
 const GameRoom = () => {
 
   const [Restaurants, setRestaurants] = useState([]);
@@ -13,7 +16,7 @@ const GameRoom = () => {
     getRestaurants();
   }, []);
 
-  const getRestaurants = () => {
+  const getRestaurants = async () => {
 
     let lurl = "https://api.yelp.com/v3/businesses/search?location=davis,ca,us";
     let kek = "https://cors-anywhere.herokuapp.com/"
@@ -21,7 +24,7 @@ const GameRoom = () => {
     let url = kek + lurl;
     //GaS8MVZOoznvBJmkaZgAHxraTNOgmXnfQVffKpt-6WZZGNPSzL4MSzxFes2uD7V4Y-WqW0V_B_kLysY1TBHGShW9_n9O-vTkbSPqDabxNZPBdnFObQDAXes2UazHXnYx
 
-    fetch(url, {
+    await fetch(url, {
       headers: {
         Authorization: 'Bearer GaS8MVZOoznvBJmkaZgAHxraTNOgmXnfQVffKpt-6WZZGNPSzL4MSzxFes2uD7V4Y-WqW0V_B_kLysY1TBHGShW9_n9O-vTkbSPqDabxNZPBdnFObQDAXes2UazHXnYx',
       }
@@ -32,14 +35,18 @@ const GameRoom = () => {
       // resolves into the JSON content
       .then(function (gList) {
         console.log(gList);
-        setRestaurants(gList.businesses);
         setNumCards(gList.total);
+        console.log(numCards);
+        setRestaurants(gList.businesses);
+        console.log("Leaving getRestuarants()")
+
       });
   }
-
+  // TODO: if all users select this card, winner formed!
   const showSuccess = () => {
     message.success('Successfuly liked the restaurant', 0.5);
   };
+  // TODO: remove card from DB on failure
   const showFailure = () => {
     message.error('Skipped!!!', 0.5);
   };
@@ -52,6 +59,8 @@ const GameRoom = () => {
 
   const onCardLeftScreen = (myIdentifier) => {
     console.log(myIdentifier + ' left the screen')
+    setNumCards(numCards - 1);
+    console.log(numCards)
   }
 
   return (
@@ -78,7 +87,7 @@ const GameRoom = () => {
           : (
             <div style={Styles.noCard}>
               <Spin size='large'>
-                <h1 style={Styles.noCard}>Fetching new cards...</h1>
+                <h1 style={Styles.noCard}>Fetching restaurants...</h1>
               </Spin>
             </div>
           )}
@@ -101,7 +110,8 @@ const Styles = {
     bordeRadius: '1px',
     left: '50%',
     top: '50%',
-    transform: 'translate(-50%, -50%)'
+    transform: 'translate(-50%, -50%)',
+    color: 'white'
   },
   title: {
     // fontFamily: 'Damion, sans-serif',
