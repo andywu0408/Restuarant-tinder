@@ -3,25 +3,39 @@ import TinderCard from 'react-tinder-card';
 import RestaurantCard from './RestaurantCard';
 import { message, Spin } from 'antd';
 
-// const Restaurants = [
-//   { name: 'McDonalds1', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
-//   { name: 'McDonalds2', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
-//   { name: 'McDonalds3', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
-//   { name: 'McDonalds4', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
-//   { name: 'McDonalds5', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
-//   { name: 'McDonalds6', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
-//   { name: 'McDonalds7', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
-//   { name: 'McDonalds8', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
-//   { name: 'McDonalds9', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
-//   { name: 'McDonalds10', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' },
-
-// ];
-
 const GameRoom = () => {
 
   const [Restaurants, setRestaurants] = useState([]);
-  //const [Restaurants, setRestaurants] = useState([{ name: 'McDonalds1', rating: '4/5 stars', numReviews: '120', priceRange: '$100-200', numTimesChosen: '20', picURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSMP6hAScXYimuGMA9d7BnAkeZfBFMotESMyITAQrQ-Uxbe_io-&usqp=CAU' }]);
+  // const [Restaurants, setRestaurants] = useState(db);
   const [numCards, setNumCards] = useState(0);
+
+  useEffect(() => {
+    getRestaurants();
+  }, []);
+
+  const getRestaurants = () => {
+
+    let lurl = "https://api.yelp.com/v3/businesses/search?location=davis,ca,us";
+    let kek = "https://cors-anywhere.herokuapp.com/"
+
+    let url = kek + lurl;
+    //GaS8MVZOoznvBJmkaZgAHxraTNOgmXnfQVffKpt-6WZZGNPSzL4MSzxFes2uD7V4Y-WqW0V_B_kLysY1TBHGShW9_n9O-vTkbSPqDabxNZPBdnFObQDAXes2UazHXnYx
+
+    fetch(url, {
+      headers: {
+        Authorization: 'Bearer GaS8MVZOoznvBJmkaZgAHxraTNOgmXnfQVffKpt-6WZZGNPSzL4MSzxFes2uD7V4Y-WqW0V_B_kLysY1TBHGShW9_n9O-vTkbSPqDabxNZPBdnFObQDAXes2UazHXnYx',
+      }
+    })
+      // fetch returns a Promise the resolves into the response object
+      .then(function (response) { return response.json(); })
+      // parse the JSON from the server; response.json also returns a Promise that
+      // resolves into the JSON content
+      .then(function (gList) {
+        console.log(gList);
+        setRestaurants(gList.businesses);
+        setNumCards(gList.total);
+      });
+  }
 
   const showSuccess = () => {
     message.success('Successfuly liked the restaurant', 0.5);
@@ -56,15 +70,15 @@ const GameRoom = () => {
             <TinderCard key={restaurant.name} onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen(restaurant.name)} preventSwipe={['up', 'down']}>
               <RestaurantCard
                 name={restaurant.name}
-                rating={restaurant.rating} numReviews={restaurant.numReviews}
-                priceRange={restaurant.priceRange} picURL={restaurant.picURL}
-                numTimesChosen={restaurant.numTimesChosen} />
+                rating={restaurant.rating} numReviews={restaurant.review_count}
+                priceRange={restaurant.price} picURL={restaurant.image_url}
+                numTimesChosen={0} />
             </TinderCard>
           )))
           : (
             <div style={Styles.noCard}>
               <Spin size='large'>
-                <h1 style={Styles.noCard}>There is no availabe card right now...</h1>
+                <h1 style={Styles.noCard}>Fetching new cards...</h1>
               </Spin>
             </div>
           )}
