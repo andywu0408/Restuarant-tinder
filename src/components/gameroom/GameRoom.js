@@ -32,10 +32,10 @@ const GameRoom = () => {
       }
     })
       // fetch returns a Promise the resolves into the response object
-      .then(function (response) { return response.json(); })
+      .then(response => { return response.json(); })
       // parse the JSON from the server; response.json also returns a Promise that
       // resolves into the JSON content
-      .then(function (gList) {
+      .then(gList => {
         console.log(gList);
         setRestaurants(gList.businesses);
         console.log("Leaving getRestuarants()")
@@ -50,10 +50,10 @@ const GameRoom = () => {
     message.error('Skipped!!!', 0.5);
   };
   const onSwipe = (direction) => {
-    if (direction == 'up' || direction == 'down') {
+    if (direction === 'up' || direction === 'down') {
       return;
     }
-    direction == 'right' ? showSuccess() : showFailure();
+    direction === 'right' ? showSuccess() : showFailure();
   }
 
   const onCardLeftScreen = (myIdentifier) => {
@@ -71,7 +71,7 @@ const GameRoom = () => {
       </div>
 
       <div style={Styles.cardContainer}>
-        {Restaurants.length != 0
+        {Restaurants.length !== 0
           ? (Restaurants.map((restaurant) => (
             <TinderCard key={restaurant.name} onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen(restaurant.name)} preventSwipe={['up', 'down']}>
               <RestaurantCard

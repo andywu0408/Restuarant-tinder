@@ -1,6 +1,5 @@
 import React from 'react';
-import { Select, Spin } from 'antd';
-// import debounce from 'debounce';
+import { Select } from 'antd';
 
 const { Option } = Select;
 
@@ -10,13 +9,16 @@ class SearchControl extends React.Component {
         this.fetchSuggestion = this.fetchSuggestion.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.state = {
-            children: [<Option key="HI">a</Option>],
-            finishedFetch: false
+            children: [],
+
         };
     }
     componentDidMount() {
+        this.mounted = true;
         this.fetchSuggestion();
-        this.setState({ finishedFetch: true })
+    }
+    componentWillUnmount() {
+        this.mounted = false;
     }
 
     handleChange = value => {
@@ -36,21 +38,17 @@ class SearchControl extends React.Component {
                 //TODO: hide API key with .env
                 Authorization: 'Bearer GaS8MVZOoznvBJmkaZgAHxraTNOgmXnfQVffKpt-6WZZGNPSzL4MSzxFes2uD7V4Y-WqW0V_B_kLysY1TBHGShW9_n9O-vTkbSPqDabxNZPBdnFObQDAXes2UazHXnYx',
             }
-        })
-            // fetch returns a Promise the resolves into the response object
-            .then(response => { return response.json(); })
-            // parse the JSON from the server; response.json also returns a Promise that
-            // resolves into the JSON content
+        }).then(response => { return response.json(); })
             .then(gList => {
-                gList.categories.map(item => {
-
-                    this.setState({
-                        children: [...this.state.children, <Option key={item.alias}>{item.title}</Option>]
-                    })
-
-
-                    // children.push(<Option key={item.alias}>{item.title}</Option>)
-                });
+                if (this.mounted) {
+                    gList.categories.map(item => {
+                        if (item.parent_aliases == 'food' || this.parent_aliases == 'restaurants') {
+                            this.setState({
+                                children: [...this.state.children, <Option key={item.alias}>{item.title}</Option>]
+                            })
+                        };
+                    });
+                }
             });
 
     };
@@ -59,19 +57,17 @@ class SearchControl extends React.Component {
 
     render() {
 
-        const { finishedFetch } = this.state;
         return (
-            !finishedFetch ? null :
-                <Select
-                    mode="multiple"
-                    style={{ width: 400, height: 400 }}
-                    placeholder="Input a restaurant search keyword or location..."
-                    // defaultValue={['a10', 'c12']}
-                    onChange={this.handleChange}
-                    size="large"
-                >
-                    {this.state.children}
-                </Select>
+            <Select
+                mode="multiple"
+                style={{ width: 400, height: 400 }}
+                placeholder="Input a restaurant search keyword or location..."
+                // defaultValue={['a10', 'c12']}
+                onChange={this.handleChange}
+                size="large"
+            >
+                {this.state.children}
+            </Select>
         );
     }
 }
