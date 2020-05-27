@@ -1,7 +1,34 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, Modal } from 'antd';
+import { Button, Modal, AutoComplete } from 'antd';
 import homePageBackground from '../assets/homePageBackground.jpg';
+import Test from '../test';
+import SearchControl from '../SearchControl';
+
+const locOptions = [
+  {
+    value: 'fremont,ca,us',
+  },
+  {
+    value: 'davis,ca,us',
+  },
+  {
+    value: 'SF',
+  },
+];
+
+const keywordOptions = [
+  {
+    value: 'yummy',
+  },
+  {
+    value: 'night',
+  },
+  {
+    value: 'expensive',
+  },
+];
+
 
 //NOTE: This is the home screen
 const HomePage = props => {
@@ -37,6 +64,31 @@ const HomePage = props => {
       <h1 style={Styles.title}>
         Welcome to Restaurant Tinder!
       </h1>
+      <div>
+        {/* <AutoComplete
+          style={{
+            width: 200,
+          }}
+          options={locOptions}
+          placeholder="Type in location"
+          filterOption={(inputValue, option) =>
+            option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+          }
+        /> */}
+        <SearchControl />
+      </div>
+      <div>
+        {/* <AutoComplete
+          style={{
+            width: 200,
+          }}
+          options={keywordOptions}
+          placeholder="Type in keywords"
+          filterOption={(inputValue, option) =>
+            option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+          }
+        /> */}
+      </div>
       <Button
         type="primary"
         block

@@ -39,7 +39,6 @@ const GameRoom = () => {
         console.log(gList);
         setRestaurants(gList.businesses);
         console.log("Leaving getRestuarants()")
-
       });
   }
   // TODO: if all users select this card, winner formed!
