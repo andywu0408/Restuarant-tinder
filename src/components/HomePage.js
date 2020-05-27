@@ -2,15 +2,36 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, Modal } from 'antd';
 import homePageBackground from '../assets/homePageBackground.jpg';
-import RestaurantCard from '../components/gameroom/RestaurantCard';
+import SearchControl from '../SearchControl';
 
 //NOTE: This is the home screen
 const HomePage = props => {
   const history = useHistory();
+  const [selectedFoodTags, setSelectedFoodTags] = useState([]);
+  const [selectedRestaurantTags, setSelectedRestaurantTags] = useState([]);
 
+  useEffect(() => {
+    console.log("In homepage")
+    console.log(typeof (selectedFoodTags));
+    console.log(selectedFoodTags)
+  }, [selectedFoodTags]);
+
+  useEffect(() => {
+    console.log("In homepage")
+    console.log(typeof (selectedRestaurantTags));
+    console.log(selectedRestaurantTags)
+  }, [selectedRestaurantTags]);
 
   const goToGameRoom = () => {
-    history.push(`/gameroom/${props.roomID}`);
+
+    history.push({
+      pathname: `/gameroom/${props.roomID}`,
+      state: {
+        loc: 'fremont,ca,us',
+        queryParams: selectedFoodTags.toString() + "," + selectedRestaurantTags.toString(),
+        limit: 50,
+      }
+    });
   };
 
 
@@ -36,6 +57,10 @@ const HomePage = props => {
       <h1 style={Styles.title}>
         Welcome to Restaurant Tinder!
       </h1>
+      <div style={Styles.searchControlContainer}>
+        <SearchControl type="restaurants" updateVal={setSelectedRestaurantTags} />
+        <SearchControl type="food" updateVal={setSelectedFoodTags} />
+      </div>
       <Button
         type="primary"
         block
@@ -61,6 +86,10 @@ const Styles = {
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
+  },
+  searchControlContainer: {
+    display: 'flex',
+    flexDirection: 'column',
   },
   startButton: {
     height: 120,

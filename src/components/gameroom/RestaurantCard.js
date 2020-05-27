@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Card } from 'antd';
 
 const { Meta } = Card;
@@ -56,6 +56,5 @@ const RestaurantCard = props => {
   );
 }
 
-const Styles = {};
 
 export default RestaurantCard;
