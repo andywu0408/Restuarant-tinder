@@ -14,7 +14,7 @@ class SearchControl extends React.Component {
         };
     }
     componentDidMount() {
-        console.log(this.props.type)
+
         this.mounted = true;
         this.fetchSuggestion();
     }
@@ -24,6 +24,7 @@ class SearchControl extends React.Component {
 
     handleChange = value => {
         console.log(`selected ${value}`);
+        this.props.updateVal(value)
     }
 
     fetchSuggestion = () => {

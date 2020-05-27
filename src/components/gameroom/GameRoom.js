@@ -18,8 +18,10 @@ const GameRoom = () => {
 
   const getRestaurants = async () => {
 
-    let lurl = `https://api.yelp.com/v3/businesses/search?location=${location.state.loc}
-    &limit=${location.state.limit}`;
+    let lurl = `https://api.yelp.com/v3/businesses/search?categories=
+                  ${location.state.queryParams}
+                  &limits=${location.state.limit}&location=us`;
+    console.log('lurl is ' + lurl)
     let kek = "https://cors-anywhere.herokuapp.com/"
 
     let url = kek + lurl;

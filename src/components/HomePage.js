@@ -1,42 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, Modal } from 'antd';
 import homePageBackground from '../assets/homePageBackground.jpg';
 import SearchControl from '../SearchControl';
 
-const locOptions = [
-  {
-    value: 'fremont,ca,us',
-  },
-  {
-    value: 'davis,ca,us',
-  },
-  {
-    value: 'SF',
-  },
-];
-
-const keywordOptions = [
-  {
-    value: 'yummy',
-  },
-  {
-    value: 'night',
-  },
-  {
-    value: 'expensive',
-  },
-];
-
-
 //NOTE: This is the home screen
 const HomePage = props => {
   const history = useHistory();
+  const [selectedFoodTags, setSelectedFoodTags] = useState([]);
+  const [selectedRestaurantTags, setSelectedRestaurantTags] = useState([]);
+
+  useEffect(() => {
+    console.log("In homepage")
+    console.log(typeof (selectedFoodTags));
+    console.log(selectedFoodTags)
+  }, [selectedFoodTags]);
+
+  useEffect(() => {
+    console.log("In homepage")
+    console.log(typeof (selectedRestaurantTags));
+    console.log(selectedRestaurantTags)
+  }, [selectedRestaurantTags]);
 
   const goToGameRoom = () => {
+
     history.push({
       pathname: `/gameroom/${props.roomID}`,
-      state: { loc: 'fremont,ca,us', limit: 50 } //TODO: Add keyword query param here too
+      state: {
+        loc: 'fremont,ca,us',
+        queryParams: selectedFoodTags.toString() + "," + selectedRestaurantTags.toString(),
+        limit: 50,
+      }
     });
   };
 
@@ -64,8 +58,8 @@ const HomePage = props => {
         Welcome to Restaurant Tinder!
       </h1>
       <div style={Styles.searchControlContainer}>
-        <SearchControl type="restaurants" />
-        <SearchControl type="food" />
+        <SearchControl type="restaurants" updateVal={setSelectedRestaurantTags} />
+        <SearchControl type="food" updateVal={setSelectedFoodTags} />
       </div>
       <Button
         type="primary"
