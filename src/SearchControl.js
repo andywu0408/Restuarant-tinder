@@ -14,6 +14,7 @@ class SearchControl extends React.Component {
         };
     }
     componentDidMount() {
+        console.log(this.props.type)
         this.mounted = true;
         this.fetchSuggestion();
     }
@@ -44,7 +45,7 @@ class SearchControl extends React.Component {
                 console.log(gList)
                 if (this.mounted) {
                     gList.categories.map(item => {
-                        if (item.parent_aliases[0] == 'restaurants' || item.parent_aliases[0] == 'food') {
+                        if (item.parent_aliases[0] == this.props.type) {
                             this.setState({
                                 children: [...this.state.children, <Option key={item.alias}>{item.title}</Option>]
                             })
@@ -57,28 +58,31 @@ class SearchControl extends React.Component {
 
     };
 
-
-
     render() {
 
         return (
-            <Select
-                mode="multiple"
-                style={{ width: 400, height: 400 }}
-                placeholder="Input a restaurant search keyword or location..."
-                notFoundContent={
-                    this.state.isLoading ?
-                        <div style={{ textAlign: "center" }}>
-                            <Spin size="large" tip="loading options..." />
-                        </div>
-                        : null
-                }
-                // defaultValue={['a10', 'c12']}
-                onChange={this.handleChange}
-                size="large"
-            >
-                {this.state.children}
-            </Select>
+            <div style={{ margin: '40px 20px' }}>
+                <div style={{ color: 'white', fontSize: 24, marginBottom: 12 }}>
+                    Filter by {this.props.type}:
+                </div>
+                <Select
+                    mode="multiple"
+                    style={{ width: 400 }}
+                    placeholder={`Search by ${this.props.type}`}
+                    notFoundContent={
+                        this.state.isLoading ?
+                            <div style={{ textAlign: "center" }}>
+                                <Spin size="large" tip="loading options..." />
+                            </div>
+                            : null
+                    }
+                    // defaultValue={['a10', 'c12']}
+                    onChange={this.handleChange}
+                    size="large"
+                >
+                    {this.state.children}
+                </Select>
+            </div>
         );
     }
 }

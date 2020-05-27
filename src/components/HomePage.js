@@ -63,8 +63,9 @@ const HomePage = props => {
       <h1 style={Styles.title}>
         Welcome to Restaurant Tinder!
       </h1>
-      <div>
-        <SearchControl />
+      <div style={Styles.searchControlContainer}>
+        <SearchControl type="restaurants" />
+        <SearchControl type="food" />
       </div>
       <Button
         type="primary"
@@ -91,6 +92,10 @@ const Styles = {
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
+  },
+  searchControlContainer: {
+    display: 'flex',
+    flexDirection: 'column',
   },
   startButton: {
     height: 120,
