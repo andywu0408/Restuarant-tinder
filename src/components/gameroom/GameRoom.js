@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from "react-router-dom";
 import TinderCard from 'react-tinder-card';
 import RestaurantCard from './RestaurantCard';
 import { message, Spin } from 'antd';
@@ -7,6 +8,7 @@ import { message, Spin } from 'antd';
 // the selection screen(not created yet) and passed in as props. 
 // home screen -> selection screen -> gameRoom
 const GameRoom = () => {
+  const location = useLocation();
 
   const [Restaurants, setRestaurants] = useState([]);
   // const [Restaurants, setRestaurants] = useState(db);
@@ -18,7 +20,7 @@ const GameRoom = () => {
 
   const getRestaurants = async () => {
 
-    let lurl = "https://api.yelp.com/v3/businesses/search?location=davis,ca,us";
+    let lurl = `https://api.yelp.com/v3/businesses/search?location=${location.state.loc}`;
     let kek = "https://cors-anywhere.herokuapp.com/"
 
     let url = kek + lurl;

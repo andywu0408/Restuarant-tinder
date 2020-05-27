@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, Modal } from 'antd';
 import homePageBackground from '../assets/homePageBackground.jpg';
-import RestaurantCard from '../components/gameroom/RestaurantCard';
 
 //NOTE: This is the home screen
 const HomePage = props => {
   const history = useHistory();
 
-
   const goToGameRoom = () => {
-    history.push(`/gameroom/${props.roomID}`);
+    history.push({
+      pathname: `/gameroom/${props.roomID}`,
+      state: { loc: 'fremont,ca,us' }
+    });
   };
 
 
