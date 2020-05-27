@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select } from 'antd';
+import { Select, Spin } from 'antd';
 
 const { Option } = Select;
 
@@ -10,7 +10,7 @@ class SearchControl extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.state = {
             children: [],
-
+            isLoading: true
         };
     }
     componentDidMount() {
@@ -26,6 +26,7 @@ class SearchControl extends React.Component {
     }
 
     fetchSuggestion = () => {
+
         console.log("FetchSuggestion()")
 
         let lurl = 'https://api.yelp.com/v3/categories?locale=en_US'
@@ -40,16 +41,19 @@ class SearchControl extends React.Component {
             }
         }).then(response => { return response.json(); })
             .then(gList => {
+                console.log(gList)
                 if (this.mounted) {
                     gList.categories.map(item => {
-                        if (item.parent_aliases == 'food' || this.parent_aliases == 'restaurants') {
+                        if (item.parent_aliases[0] == 'restaurants' || item.parent_aliases[0] == 'food') {
                             this.setState({
                                 children: [...this.state.children, <Option key={item.alias}>{item.title}</Option>]
                             })
-                        };
+                        }
                     });
+                    this.setState({ isLoading: false })
                 }
             });
+
 
     };
 
@@ -62,6 +66,13 @@ class SearchControl extends React.Component {
                 mode="multiple"
                 style={{ width: 400, height: 400 }}
                 placeholder="Input a restaurant search keyword or location..."
+                notFoundContent={
+                    this.state.isLoading ?
+                        <div style={{ textAlign: "center" }}>
+                            <Spin size="large" tip="loading options..." />
+                        </div>
+                        : null
+                }
                 // defaultValue={['a10', 'c12']}
                 onChange={this.handleChange}
                 size="large"
