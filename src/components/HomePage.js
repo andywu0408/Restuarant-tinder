@@ -10,7 +10,7 @@ const HomePage = props => {
   const goToGameRoom = () => {
     history.push({
       pathname: `/gameroom/${props.roomID}`,
-      state: { loc: 'fremont,ca,us' }
+      state: { loc: 'fremont,ca,us', limit: 50 } //TODO: Add keyword query param here too
     });
   };
 

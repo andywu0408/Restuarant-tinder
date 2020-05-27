@@ -11,8 +11,6 @@ const GameRoom = () => {
   const location = useLocation();
 
   const [Restaurants, setRestaurants] = useState([]);
-  // const [Restaurants, setRestaurants] = useState(db);
-  const [numCards, setNumCards] = useState(0);
 
   useEffect(() => {
     getRestaurants();
@@ -20,7 +18,8 @@ const GameRoom = () => {
 
   const getRestaurants = async () => {
 
-    let lurl = `https://api.yelp.com/v3/businesses/search?location=${location.state.loc}`;
+    let lurl = `https://api.yelp.com/v3/businesses/search?location=${location.state.loc}
+    &limit=${location.state.limit}`;
     let kek = "https://cors-anywhere.herokuapp.com/"
 
     let url = kek + lurl;
@@ -28,6 +27,7 @@ const GameRoom = () => {
 
     await fetch(url, {
       headers: {
+        //TODO: hide API key with .env
         Authorization: 'Bearer GaS8MVZOoznvBJmkaZgAHxraTNOgmXnfQVffKpt-6WZZGNPSzL4MSzxFes2uD7V4Y-WqW0V_B_kLysY1TBHGShW9_n9O-vTkbSPqDabxNZPBdnFObQDAXes2UazHXnYx',
       }
     })
@@ -37,8 +37,6 @@ const GameRoom = () => {
       // resolves into the JSON content
       .then(function (gList) {
         console.log(gList);
-        setNumCards(gList.total);
-        console.log(numCards);
         setRestaurants(gList.businesses);
         console.log("Leaving getRestuarants()")
 
@@ -61,8 +59,6 @@ const GameRoom = () => {
 
   const onCardLeftScreen = (myIdentifier) => {
     console.log(myIdentifier + ' left the screen')
-    setNumCards(numCards - 1);
-    console.log(numCards)
   }
 
   return (
