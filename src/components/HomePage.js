@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Button, Modal } from 'antd';
 import homePageBackground from '../assets/homePageBackground.jpg';
 import SearchControl from '../SearchControl';
+import LocSearchBar from './LocSearchBar';
 
 //NOTE: This is the home screen
 const HomePage = props => {
@@ -60,6 +61,7 @@ const HomePage = props => {
       <div style={Styles.searchControlContainer}>
         <SearchControl type="restaurants" updateVal={setSelectedRestaurantTags} />
         <SearchControl type="food" updateVal={setSelectedFoodTags} />
+        <LocSearchBar />
       </div>
       <Button
         type="primary"
