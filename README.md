@@ -1,3 +1,11 @@
+Notes for the team:
+- Make sure you have either "yarn" or "npm" installed (these are package managers)
+- If this is your first time cloning the project to your local env, make sure you do "yarn install" or "npm install" first to download all the dependencies.
+- To start the project locally and see it in browser, run "yarn start" or "npm start" in terminal (make sure you do this in the project directory)
+
+** When adding code, make sure you branch off from master to a seperate branch -> write code on it -> push your branch to remote origin when you're done -> submit a merge/pull request
+** DO NOT PUSH DIRECTLY TO MASTER.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
