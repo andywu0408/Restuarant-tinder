@@ -69,7 +69,7 @@ class SearchControl extends React.Component {
                 <Select
                     mode="multiple"
                     style={{ width: 400 }}
-                    placeholder={`Search by ${this.props.type}`}
+                    placeholder={`Search some ${this.props.type} types!`}
                     notFoundContent={
                         this.state.isLoading ?
                             <div style={{ textAlign: "center" }}>

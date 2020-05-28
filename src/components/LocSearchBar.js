@@ -18,30 +18,36 @@ class LocSearchBar extends React.Component {
 
     onChange = (value) => {
         console.log(`selected ${value}`);
+        this.props.updateVal(value)
     }
 
     render() {
 
         return (
-            <Select
-                showSearch
-                style={{ width: 200 }}
-                placeholder="Select a person"
-                optionFilterProp="children"
-                onChange={this.onChange}
-                filterOption={(input, option) =>
-                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                }
-            >
-                {cities.map(item => (
-                    <Option
-                        key={item.city + item.state}
-                        value={`${item.city}, ${item.state}`}
-                    >
-                        {`${item.city}, ${item.state}`}
-                    </Option>
-                ))}
-            </Select>
+            <div style={{ margin: '20px 20px 80px' }}>
+                <div style={{ color: 'white', fontSize: 24, marginBottom: 12 }}>
+                    Filter by {this.props.type}:
+            </div>
+                <Select
+                    showSearch
+                    style={{ width: 200 }}
+                    placeholder="Select a location!"
+                    optionFilterProp="children"
+                    onChange={this.onChange}
+                    filterOption={(input, option) =>
+                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                    }
+                >
+                    {cities.map(item => (
+                        <Option
+                            key={item.city + item.state}
+                            value={`${item.city}, ${item.state}`}
+                        >
+                            {`${item.city}, ${item.state}`}
+                        </Option>
+                    ))}
+                </Select>
+            </div>
         )
     }
 };

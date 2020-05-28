@@ -20,7 +20,7 @@ const GameRoom = () => {
 
     let lurl = `https://api.yelp.com/v3/businesses/search?categories=
                   ${location.state.queryParams}
-                  &limit=${location.state.limit}&location=san jose`;
+                  &limit=${location.state.limit}&location=${location.state.loc}`;
     console.log('lurl is ' + lurl)
     let kek = "https://cors-anywhere.herokuapp.com/"
 

@@ -10,6 +10,7 @@ const HomePage = props => {
   const history = useHistory();
   const [selectedFoodTags, setSelectedFoodTags] = useState([]);
   const [selectedRestaurantTags, setSelectedRestaurantTags] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState("");
 
   useEffect(() => {
     console.log("In homepage")
@@ -23,12 +24,18 @@ const HomePage = props => {
     console.log(selectedRestaurantTags)
   }, [selectedRestaurantTags]);
 
+  useEffect(() => {
+    console.log("In homepage")
+    console.log(typeof (selectedLocation));
+    console.log(selectedLocation)
+  }, [selectedLocation]);
+
   const goToGameRoom = () => {
 
     history.push({
       pathname: `/gameroom/${props.roomID}`,
       state: {
-        loc: 'fremont,ca,us',
+        loc: selectedLocation,
         queryParams: selectedFoodTags.toString() + "," + selectedRestaurantTags.toString(),
         limit: 50,
       }
@@ -61,7 +68,7 @@ const HomePage = props => {
       <div style={Styles.searchControlContainer}>
         <SearchControl type="restaurants" updateVal={setSelectedRestaurantTags} />
         <SearchControl type="food" updateVal={setSelectedFoodTags} />
-        <LocSearchBar />
+        <LocSearchBar updateVal={setSelectedLocation} />
       </div>
       <Button
         type="primary"
