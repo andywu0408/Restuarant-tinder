@@ -37,7 +37,7 @@ const HomePage = props => {
       state: {
         loc: selectedLocation,
         queryParams: selectedFoodTags.toString() + "," + selectedRestaurantTags.toString(),
-        limit: 50,
+        limit: 20,
       }
     });
   };
