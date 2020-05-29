@@ -1,7 +1,7 @@
 Notes for the team:
 - Make sure you have either "yarn" or "npm" installed (these are package managers)
 - If this is your first time cloning the project to your local env, make sure you do "yarn install" or "npm install" first to download all the dependencies.
-- To start the project locally and see it in browser, run "yarn start" or "npm start" in terminal (make sure you do this in the project directory).
+- To start the project locally and see it in browser, run "yarn start" or "npm start" in terminal (make sure you do this in the project directory)\
 -Current websocket progress: https://glitch.com/edit/#!/join/cc53244e-d2e3-4059-8d5d-a75452b54d6e
 
 
