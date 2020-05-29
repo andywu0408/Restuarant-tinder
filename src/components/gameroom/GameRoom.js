@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import TinderCard from 'react-tinder-card';
 import RestaurantCard from './RestaurantCard';
 import { message, Spin } from 'antd';
+//TODO: add handlers when location or query params is not provided -> so yelp api won't error
 
 //FIXME: fetching yelp API + setting restaurant list + setting numCards should be done in
 // the selection screen(not created yet) and passed in as props. 

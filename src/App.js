@@ -19,8 +19,8 @@ const App = () => {
   }
 
   useEffect(() => {
-    const randomStr = generateRoomID(16);
-    setRoomID(randomStr);
+    // const randomStr = generateRoomID(16);
+    setRoomID("hardcodedroomid");
   }, []);
 
   return (
