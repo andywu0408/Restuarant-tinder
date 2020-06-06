@@ -4,6 +4,7 @@ import { Button, Modal } from 'antd';
 import homePageBackground from '../assets/homePageBackground.jpg';
 import SearchControl from '../SearchControl';
 import LocSearchBar from './LocSearchBar';
+import './HomePage.css';
 
 //NOTE: This is the home screen
 const HomePage = props => {
@@ -60,12 +61,12 @@ const HomePage = props => {
 
   return (
     <main
-      style={Styles.mainContainer}
+      id = "mainContainer"
     >
-      <h1 style={Styles.title}>
+      <h1 id = "title">
         Welcome to Restaurant Tinder!
       </h1>
-      <div style={Styles.searchControlContainer}>
+      <div id = "searchControlContainer">
         <SearchControl type="restaurants" updateVal={setSelectedRestaurantTags} />
         <SearchControl type="food" updateVal={setSelectedFoodTags} />
         <LocSearchBar updateVal={setSelectedLocation} />
@@ -74,7 +75,7 @@ const HomePage = props => {
         type="primary"
         block
         ghost
-        style={Styles.startButton}
+        id = "startButton"
         onClick={handleClick}
       >
         Start New Game!
@@ -84,36 +85,37 @@ const HomePage = props => {
 }
 
 const Styles = {
-  mainContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 60,
-    height: '100vh',
-    backgroundImage: `url(${homePageBackground})`,
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-  },
-  searchControlContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  startButton: {
-    height: 120,
-    fontSize: 40,
-    borderColor: 'white',
-    borderWidth: 5,
-  },
-  title: {
-    fontSize: 80,
-    color: 'white',
-    marginBottom: 200,
-  },
+  // mainContainer: {
+  //   display: 'flex',
+  //   flexDirection: 'column',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   padding: 60,
+  //   height: '100vh',
+  //   backgroundImage: `url(${homePageBackground})`,
+  //   backgroundPosition: 'center',
+  //   backgroundSize: 'cover',
+  //   backgroundRepeat: 'no-repeat',
+  // },
+  // searchControlContainer: {
+  //   display: 'flex',
+  //   flexDirection: 'column',
+  // },
+  // startButton: {
+  //   height: 120,
+  //   fontSize: 40,
+  //   borderColor: 'white',
+  //   borderWidth: 5,
+  // },
+  // title: {
+  //   fontSize: 80,
+  //   color: 'white',
+  //   marginBottom: 200,
+  // },
   modal: {
     backgroundColor: 'pink'
   }
+  
 }
 
 export default HomePage;
