@@ -6,8 +6,8 @@ import './homepage.css';
 
 //NOTE: This is the home screen
 const HomePage = props => {
-
-  const [selectedFoodTags, setSelectedFoodTags] = useState([]);
+  const [Restaurants, setRestaurants] = useState([]);
+  const [selectedFoodTags, setSelectedFoodTags] = useState(["o"]);
   const [selectedRestaurantTags, setSelectedRestaurantTags] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState("");
 
@@ -31,6 +31,7 @@ const HomePage = props => {
 
   const setupGame = () => {
     console.log("Sending post request to server with keywords/loc")
+    getRestaurants();
     // history.push({
     //   pathname: `/gameroom`,
     //   state: {
@@ -41,7 +42,54 @@ const HomePage = props => {
     // });
   };
 
+  const getRestaurants = async () => {
 
+    let queryParams = selectedFoodTags.toString() + "," + selectedRestaurantTags.toString();
+    let lurl = `https://api.yelp.com/v3/businesses/search?categories=
+                  ${queryParams}
+                  &limit=16&location=${selectedLocation}`;
+    console.log('lurl is ' + lurl)
+    let kek = "https://cors-anywhere.herokuapp.com/"
+
+    let url = kek + lurl;
+    //GaS8MVZOoznvBJmkaZgAHxraTNOgmXnfQVffKpt-6WZZGNPSzL4MSzxFes2uD7V4Y-WqW0V_B_kLysY1TBHGShW9_n9O-vTkbSPqDabxNZPBdnFObQDAXes2UazHXnYx
+
+    await fetch(url, {
+      headers: {
+        //TODO: hide API key with .env
+        Authorization: 'Bearer GaS8MVZOoznvBJmkaZgAHxraTNOgmXnfQVffKpt-6WZZGNPSzL4MSzxFes2uD7V4Y-WqW0V_B_kLysY1TBHGShW9_n9O-vTkbSPqDabxNZPBdnFObQDAXes2UazHXnYx',
+      }
+    })
+      // fetch returns a Promise the resolves into the response object
+      .then(response => { return response.json(); })
+      // parse the JSON from the server; response.json also returns a Promise that
+      // resolves into the JSON content
+      .then(gList => {
+        console.log(gList);
+        //setRestaurants(gList.businesses);
+        sendToServer(gList.businesses);
+
+        console.log("Leaving getRestuarants()")
+      });
+  }
+
+  const sendToServer = (restaurantList) => {
+    console.log("Sending this to servers: ", restaurantList)
+    fetch('/restList',{
+      method: 'POST',
+      body: JSON.stringify({
+        Restaurants: restaurantList
+      }),
+      headers: {"Content-Type": "application/json"}
+    })
+    .then(function(response){
+
+      return response.json()
+    }).then(function(body){
+      console.log(body);
+
+    });
+  }
   const handleClick = () => {
     setupGame();
     Modal.info({
