@@ -21,7 +21,10 @@ const App = () => {
   useEffect(() => {
     const randomStr = generateRoomID(16);
     setRoomID(randomStr);
+
   }, []);
+
+
 
   return (
     <main>
