@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Button, Modal } from 'antd';
-import homePageBackground from '../assets/homePageBackground.jpg';
 import SearchControl from '../SearchControl';
 import LocSearchBar from './LocSearchBar';
-import './HomePage.css';
+import './homepage.css';
 
 //NOTE: This is the home screen
 const HomePage = props => {
-  const history = useHistory();
-  const [selectedFoodTags, setSelectedFoodTags] = useState([]);
+  const [Restaurants, setRestaurants] = useState([]);
+  const [selectedFoodTags, setSelectedFoodTags] = useState(["all"]);
   const [selectedRestaurantTags, setSelectedRestaurantTags] = useState([]);
-  const [selectedLocation, setSelectedLocation] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState("davis,ca");
 
   useEffect(() => {
     console.log("In homepage")
@@ -31,51 +29,101 @@ const HomePage = props => {
     console.log(selectedLocation)
   }, [selectedLocation]);
 
-  const goToGameRoom = () => {
-
-    history.push({
-      pathname: `/gameroom/${props.roomID}`,
-      state: {
-        loc: selectedLocation,
-        queryParams: selectedFoodTags.toString() + "," + selectedRestaurantTags.toString(),
-        limit: 20,
-      }
-    });
+  const setupGame = () => {
+    console.log("Sending post request to server with keywords/loc")
+    getRestaurants();
+    // history.push({
+    //   pathname: `/gameroom`,
+    //   state: {
+    //     loc: selectedLocation,
+    //     queryParams: selectedFoodTags.toString() + "," + selectedRestaurantTags.toString(),
+    //     limit: 20,
+    //   }
+    // });
   };
 
+  const getRestaurants = async () => {
 
+    let queryParams = selectedFoodTags.toString() + "," + selectedRestaurantTags.toString();
+    let lurl = `https://api.yelp.com/v3/businesses/search?categories=
+                  ${queryParams}
+                  &limit=16&location=${selectedLocation}`;
+    console.log('lurl is ' + lurl)
+    let kek = "https://cors-anywhere.herokuapp.com/"
+
+    let url = kek + lurl;
+    //GaS8MVZOoznvBJmkaZgAHxraTNOgmXnfQVffKpt-6WZZGNPSzL4MSzxFes2uD7V4Y-WqW0V_B_kLysY1TBHGShW9_n9O-vTkbSPqDabxNZPBdnFObQDAXes2UazHXnYx
+
+    await fetch(url, {
+      headers: {
+        //TODO: hide API key with .env
+        Authorization: 'Bearer GaS8MVZOoznvBJmkaZgAHxraTNOgmXnfQVffKpt-6WZZGNPSzL4MSzxFes2uD7V4Y-WqW0V_B_kLysY1TBHGShW9_n9O-vTkbSPqDabxNZPBdnFObQDAXes2UazHXnYx',
+      }
+    })
+      // fetch returns a Promise the resolves into the response object
+      .then(response => { return response.json(); })
+      // parse the JSON from the server; response.json also returns a Promise that
+      // resolves into the JSON content
+      .then(gList => {
+        console.log(gList);
+        //setRestaurants(gList.businesses);
+        sendToServer(gList.businesses);
+
+        console.log("Leaving getRestuarants()")
+      });
+  }
+
+  const sendToServer = (restaurantList) => {
+    console.log("Sending this to servers: ", restaurantList)
+    fetch('/restList', {
+      method: 'POST',
+      body: JSON.stringify({
+        Restaurants: restaurantList
+      }),
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(function (response) {
+
+        return response.json()
+      }).then(function (body) {
+        console.log(body);
+
+      });
+  }
   const handleClick = () => {
+    setupGame();
     Modal.info({
       title: 'Visit the link to start playing! You can also share the link with your friends so they can join!',
       content: (
         //TODO: the link in modal is hardcoded. Change it.
         //FIXME: User beside host can't enter room. Ask TA
-        <a href="https://www.google.com/">{`/gameroom/${props.roomID}`}</a>
+        <a href={`${window.location.href}gameroom`}>{`${window.location.href}gameroom`}</a>
       ),
-      onOk() { goToGameRoom() },
+      // onOk() { goToGameRoom() },
       keyboard: true,
       width: '50%',
-      centered: true
+      centered: true,
+      okText: 'cancel'
     });
   };
 
   return (
     <main
-      id = "mainContainer"
+      id="mainContainer"
     >
-      <h1 id = "title">
+      <h1 id="title">
         Welcome to Restaurant Tinder!
       </h1>
-      <div id = "searchControlContainer">
+      <div id="searchControlContainer">
         <SearchControl type="restaurants" updateVal={setSelectedRestaurantTags} />
         <SearchControl type="food" updateVal={setSelectedFoodTags} />
         <LocSearchBar updateVal={setSelectedLocation} />
       </div>
       <Button
         type="primary"
-        // block
+
         ghost
-        id = "startButton"
+        id="startButton"
         onClick={handleClick}
       >
         Start New Game!

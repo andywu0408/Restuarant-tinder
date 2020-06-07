@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from "react-router-dom";
 import TinderCard from 'react-tinder-card';
 import RestaurantCard from './RestaurantCard';
 import { message, Spin } from 'antd';
@@ -7,42 +6,53 @@ import { message, Spin } from 'antd';
 //FIXME: fetching yelp API + setting restaurant list + setting numCards should be done in
 // the selection screen(not created yet) and passed in as props. 
 // home screen -> selection screen -> gameRoom
+
+console.log(window.location.host + window.location.pathname)
+const url = "ws://localhost:5000/gameroom"
+const connection = new WebSocket(url);
+
 const GameRoom = () => {
-  const location = useLocation();
+
 
   const [Restaurants, setRestaurants] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     getRestaurants();
   }, []);
 
   const getRestaurants = async () => {
-
-    let lurl = `https://api.yelp.com/v3/businesses/search?categories=
-                  ${location.state.queryParams}
-                  &limit=${location.state.limit}&location=${location.state.loc}`;
-    console.log('lurl is ' + lurl)
-    let kek = "https://cors-anywhere.herokuapp.com/"
-
-    let url = kek + lurl;
-    //GaS8MVZOoznvBJmkaZgAHxraTNOgmXnfQVffKpt-6WZZGNPSzL4MSzxFes2uD7V4Y-WqW0V_B_kLysY1TBHGShW9_n9O-vTkbSPqDabxNZPBdnFObQDAXes2UazHXnYx
-
-    await fetch(url, {
-      headers: {
-        //TODO: hide API key with .env
-        Authorization: 'Bearer GaS8MVZOoznvBJmkaZgAHxraTNOgmXnfQVffKpt-6WZZGNPSzL4MSzxFes2uD7V4Y-WqW0V_B_kLysY1TBHGShW9_n9O-vTkbSPqDabxNZPBdnFObQDAXes2UazHXnYx',
-      }
-    })
-      // fetch returns a Promise the resolves into the response object
-      .then(response => { return response.json(); })
-      // parse the JSON from the server; response.json also returns a Promise that
-      // resolves into the JSON content
-      .then(gList => {
-        console.log(gList);
-        setRestaurants(gList.businesses);
-        console.log("Leaving getRestuarants()")
-      });
+    //send get request
+    console.log("Call a post request to get restaurants from server.")
   }
+
+  useEffect(() => {
+
+    connection.onopen = () => {
+      console.log("opened web socket")
+      //connection.send(JSON.stringify({"type": "helloHost"}));
+      let test = {
+        'type': "test",
+        'num': "1001"
+      }
+      connection.send(JSON.stringify(test));
+    };
+
+    connection.onmessage = event => {
+      console.log("in on message");
+      console.log(event.data)
+
+      let msgObj = JSON.parse(event.data);
+      console.log(msgObj)
+
+      if (msgObj.type == "restlist") {
+        console.log(msgObj.name);
+        setRestaurants([...msgObj.name]);
+        setIsLoaded(true);
+      }
+    };
+
+  });
   // TODO: if all users select this card, winner formed!
   const showSuccess = () => {
     message.success('Successfuly liked the restaurant', 0.5);
@@ -51,10 +61,12 @@ const GameRoom = () => {
   const showFailure = () => {
     message.error('Skipped!!!', 0.5);
   };
+
   const onSwipe = (direction) => {
     if (direction === 'up' || direction === 'down') {
       return;
     }
+
     direction === 'right' ? showSuccess() : showFailure();
   }
 
@@ -73,20 +85,20 @@ const GameRoom = () => {
       </div>
 
       <div style={Styles.cardContainer}>
-        {Restaurants.length !== 0
+        {isLoaded
           ? (Restaurants.map((restaurant) => (
             <TinderCard key={restaurant.name} onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen(restaurant.name)} preventSwipe={['up', 'down']}>
               <RestaurantCard
                 name={restaurant.name}
                 rating={restaurant.rating} numReviews={restaurant.review_count}
-                priceRange={restaurant.price} picURL={restaurant.image_url}
+                priceRange={restaurant.price} picURL={restaurant.img_url}
                 numTimesChosen={0} />
             </TinderCard>
           )))
           : (
             <div style={Styles.noCard}>
               <Spin size='large'>
-                <h1 style={Styles.noCard}>Fetching restaurants...</h1>
+                <h1 style={Styles.noCard}>WAITING FOR GAME TO START...</h1>
               </Spin>
             </div>
           )}

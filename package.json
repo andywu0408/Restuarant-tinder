@@ -7,12 +7,16 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "antd": "^4.2.4",
+    "axios": "^0.19.2",
     "debounce": "^1.2.0",
+    "express": "^4.17.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
-    "react-tinder-card": "^1.1.4"
+    "react-tinder-card": "^1.1.4",
+    "sqlite3": "^4.2.0",
+    "ws": "^7.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -20,6 +24,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://localhost:5000/",
   "eslintConfig": {
     "extends": "react-app"
   },
