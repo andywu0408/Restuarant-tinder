@@ -73,7 +73,7 @@ const HomePage = props => {
       </div>
       <Button
         type="primary"
-        block
+        // block
         ghost
         id = "startButton"
         onClick={handleClick}

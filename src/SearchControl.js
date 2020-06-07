@@ -62,14 +62,14 @@ class SearchControl extends React.Component {
     render() {
 
         return (
-            <div style={{ margin: '40px 20px' }}>
-                <div style={{ color: 'white', fontSize: 24, marginBottom: 12 }}>
+            <div style={{ margin: '10px 20px' }}>
+                <div style={{ color: 'white', fontSize: 20, marginBottom: 12 }}>
                     Filter by {this.props.type}:
                 </div>
                 <Select
                     mode="multiple"
-                    style={{ width: 400 }}
-                    placeholder={`Search some ${this.props.type} types!`}
+                    style={{ width: '100%', fontSize:'10pt' }}
+                    placeholder={`Search ${this.props.type} types!`}
                     notFoundContent={
                         this.state.isLoading ?
                             <div style={{ textAlign: "center" }}>
