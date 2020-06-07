@@ -17,7 +17,7 @@ const GameRoom = () => {
   }, []);
 
   const getRestaurants = async () => {
-
+    
     console.log("Call a post request to get restaurants from server.")
   }
   // TODO: if all users select this card, winner formed!
@@ -112,3 +112,4 @@ const Styles = {
 };
 
 export default GameRoom;
+
