@@ -49,7 +49,6 @@
     #title {
       font-size: 30pt;
       text-align: center;
-      margin: auto;
     }
     #searchControlContainer {
       display: flex;
