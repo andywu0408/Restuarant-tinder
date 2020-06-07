@@ -7,17 +7,26 @@ import { BrowserRouter } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import * as serviceWorker from './serviceWorker';
 
-console.log("HI")
+const generateRoomID = length => {
+  var result = '';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+let roomID = generateRoomID(12);
+
 if (window.location.pathname == '/') {
   console.log(1)
   ReactDOM.render(
 
-    <App />,
+    <App roomID={roomID} />,
 
     document.getElementById('root')
   );
-} else if (window.location.pathname == `/gameroom`) {
-  console.log(2)
+} else if (window.location.pathname.slice(0, 10) == `/gameroom/`) {
   ReactDOM.render(
 
     <GameRoom />,
