@@ -163,7 +163,7 @@ const Styles = {
   modal: {
     backgroundColor: 'pink'
   }
-
+  
 }
 
 export default HomePage;

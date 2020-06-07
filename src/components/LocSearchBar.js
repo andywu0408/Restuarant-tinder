@@ -25,7 +25,7 @@ class LocSearchBar extends React.Component {
 
         return (
             <div style={{ margin: '20px 20px 80px' }}>
-                <div style={{ color: 'white', fontSize: 24, marginBottom: 12 }}>
+                <div style={{ color: 'white', fontSize: 20, marginBottom: 12 }}>
                     Filter by {this.props.type}:
             </div>
                 <Select
