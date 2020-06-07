@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import ErrorPage from './components/ErrorPage';
 import GameRoom from './components/gameroom/GameRoom';
 import { BrowserRouter } from 'react-router-dom';
 import 'antd/dist/antd.css';
@@ -24,7 +25,12 @@ if (window.location.pathname == '/') {
     document.getElementById('root')
   );
 } else {
-  console.log(3)
+  ReactDOM.render(
+
+    <ErrorPage />,
+
+    document.getElementById('root')
+  );
 }
 
 // If you want your app to work offline and load faster, you can change
