@@ -12,7 +12,7 @@ const RestaurantCard = props => {
     priceRange,
     numTimesChosen,
   } = props;
-
+  console.log("pic url is: ", picURL);
   return (
     <Card
       hoverable

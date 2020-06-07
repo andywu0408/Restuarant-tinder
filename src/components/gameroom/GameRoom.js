@@ -6,6 +6,11 @@ import { message, Spin } from 'antd';
 //FIXME: fetching yelp API + setting restaurant list + setting numCards should be done in
 // the selection screen(not created yet) and passed in as props. 
 // home screen -> selection screen -> gameRoom
+
+console.log(window.location.host + window.location.pathname)
+const url = "ws://localhost:5000/gameroom"
+const connection = new WebSocket(url);
+
 const GameRoom = () => {
 
 
@@ -17,9 +22,37 @@ const GameRoom = () => {
   }, []);
 
   const getRestaurants = async () => {
-    
+    //send get request
     console.log("Call a post request to get restaurants from server.")
   }
+
+  useEffect(() => {
+
+    connection.onopen = () => {
+      console.log("opened web socket")
+      //connection.send(JSON.stringify({"type": "helloHost"}));
+      let test = {
+        'type': "test",
+        'num': "1001"
+      }
+      connection.send(JSON.stringify(test));
+    };
+
+    connection.onmessage = event => {
+      console.log("in on message");
+      console.log(event.data)
+
+      let msgObj = JSON.parse(event.data);
+      console.log(msgObj)
+
+      if (msgObj.type == "restlist") {
+        console.log(msgObj.name);
+        setRestaurants([...msgObj.name]);
+        setIsLoaded(true);
+      }
+    };
+
+  });
   // TODO: if all users select this card, winner formed!
   const showSuccess = () => {
     message.success('Successfuly liked the restaurant', 0.5);
@@ -28,6 +61,7 @@ const GameRoom = () => {
   const showFailure = () => {
     message.error('Skipped!!!', 0.5);
   };
+
   const onSwipe = (direction) => {
     if (direction === 'up' || direction === 'down') {
       return;
@@ -57,7 +91,7 @@ const GameRoom = () => {
               <RestaurantCard
                 name={restaurant.name}
                 rating={restaurant.rating} numReviews={restaurant.review_count}
-                priceRange={restaurant.price} picURL={restaurant.image_url}
+                priceRange={restaurant.price} picURL={restaurant.img_url}
                 numTimesChosen={0} />
             </TinderCard>
           )))
@@ -112,4 +146,3 @@ const Styles = {
 };
 
 export default GameRoom;
-
