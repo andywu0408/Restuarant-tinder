@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
+// import { Route, Switch } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import GameRoom from './components/gameroom/GameRoom';
 import ErrorPage from './components/ErrorPage';
@@ -25,24 +25,7 @@ const App = () => {
 
   return (
     <main>
-      <Switch>
-        <Route
-          path='/'
-          component={() => <HomePage roomID={roomID} />}
-          exact
-        />
-        {/* <Route //FIXME
-          path='/'
-          component={() => <GameRoom roomID={roomID} />}
-          exact
-        /> */}
-        <Route
-          path={`/gameroom/${roomID}`}
-          component={() => <GameRoom roomID={roomID} />}
-        />
-
-        <Route component={ErrorPage} />
-      </Switch>
+      <HomePage roomID={'roomID'} />
     </main>
   );
 }

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from "react-router-dom";
 import TinderCard from 'react-tinder-card';
 import RestaurantCard from './RestaurantCard';
 import { message, Spin } from 'antd';
@@ -8,9 +7,10 @@ import { message, Spin } from 'antd';
 // the selection screen(not created yet) and passed in as props. 
 // home screen -> selection screen -> gameRoom
 const GameRoom = () => {
-  const location = useLocation();
+
 
   const [Restaurants, setRestaurants] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     getRestaurants();
@@ -18,30 +18,7 @@ const GameRoom = () => {
 
   const getRestaurants = async () => {
 
-    let lurl = `https://api.yelp.com/v3/businesses/search?categories=
-                  ${location.state.queryParams}
-                  &limit=${location.state.limit}&location=${location.state.loc}`;
-    console.log('lurl is ' + lurl)
-    let kek = "https://cors-anywhere.herokuapp.com/"
-
-    let url = kek + lurl;
-    //GaS8MVZOoznvBJmkaZgAHxraTNOgmXnfQVffKpt-6WZZGNPSzL4MSzxFes2uD7V4Y-WqW0V_B_kLysY1TBHGShW9_n9O-vTkbSPqDabxNZPBdnFObQDAXes2UazHXnYx
-
-    await fetch(url, {
-      headers: {
-        //TODO: hide API key with .env
-        Authorization: 'Bearer GaS8MVZOoznvBJmkaZgAHxraTNOgmXnfQVffKpt-6WZZGNPSzL4MSzxFes2uD7V4Y-WqW0V_B_kLysY1TBHGShW9_n9O-vTkbSPqDabxNZPBdnFObQDAXes2UazHXnYx',
-      }
-    })
-      // fetch returns a Promise the resolves into the response object
-      .then(response => { return response.json(); })
-      // parse the JSON from the server; response.json also returns a Promise that
-      // resolves into the JSON content
-      .then(gList => {
-        console.log(gList);
-        setRestaurants(gList.businesses);
-        console.log("Leaving getRestuarants()")
-      });
+    console.log("Call a post request to get restaurants from server.")
   }
   // TODO: if all users select this card, winner formed!
   const showSuccess = () => {
@@ -55,6 +32,7 @@ const GameRoom = () => {
     if (direction === 'up' || direction === 'down') {
       return;
     }
+
     direction === 'right' ? showSuccess() : showFailure();
   }
 
@@ -73,7 +51,7 @@ const GameRoom = () => {
       </div>
 
       <div style={Styles.cardContainer}>
-        {Restaurants.length !== 0
+        {isLoaded
           ? (Restaurants.map((restaurant) => (
             <TinderCard key={restaurant.name} onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen(restaurant.name)} preventSwipe={['up', 'down']}>
               <RestaurantCard
@@ -86,7 +64,7 @@ const GameRoom = () => {
           : (
             <div style={Styles.noCard}>
               <Spin size='large'>
-                <h1 style={Styles.noCard}>Fetching restaurants...</h1>
+                <h1 style={Styles.noCard}>WAITING FOR GAME TO START...</h1>
               </Spin>
             </div>
           )}
