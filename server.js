@@ -163,7 +163,7 @@ wss.on('connection', (ws) => {
 
     if (cmdObj.type == 'command' && cmdObj.selection == 0) { //vote no
 
-      // updateDB(players[ws.id].restIndex, dbObj[players[ws.id].restIndex].votes, dbObj[players[ws.id].restIndex].totalVotes, round);
+      updateDB(players[ws.id].restIndex, dbObj[players[ws.id].restIndex].votes, dbObj[players[ws.id].restIndex].totalVotes, round);
 
       if (players[ws.id].restIndex < dbObj.length - 1) {
         players[ws.id].restIndex++;
@@ -222,13 +222,14 @@ wss.on('connection', (ws) => {
     }
 
     if (cmdObj.type == 'command' && cmdObj.selection == 1) {
+      console.log("user: ", ws.id, "voted yes on restaurant ", dbObj[players[ws.id].restIndex].name);
       dbObj[players[ws.id].restIndex].votes++; //increment the number of times chosen
       dbObj[players[ws.id].restIndex].totalVotes++;
       console.log(dbObj[players[ws.id].restIndex].name, " has been chosen ", dbObj[players[ws.id].restIndex].votes, " times this round",
         " and has ", dbObj[players[ws.id].restIndex].totalVotes, " cumulative votes");
 
 
-      // updateDB(players[ws.id].restIndex, dbObj[players[ws.id].restIndex].votes, dbObj[players[ws.id].restIndex].totalVotes, round);
+      updateDB(players[ws.id].restIndex, dbObj[players[ws.id].restIndex].votes, dbObj[players[ws.id].restIndex].totalVotes, round);
 
       /* check if one has been chosen 3 times will need to add*/
       if (dbObj[players[ws.id].restIndex].votes == (numClients - 1)) {

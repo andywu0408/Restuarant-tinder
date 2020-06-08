@@ -1,4 +1,6 @@
-**Notes for grader:(Please Read)** ----> p.s. thank you so much for a great quarter & grading our project!
+**!!!!! This is MASTER please do not mess up with master do it on branch first**
+
+**Important notes for grader:** ----> p.s. thank you so much for a great quarter & grading our project!
 
 **1) Why are we submitting this github repo instead of a glitch project?**
 - because our project got **suspended** by Glitch at June 6th evening around 9pm for "Violating Terms of Service" for unknown reasons. We don't have access to our code/project on glitch anymore and switeched back to developing locally.
@@ -12,11 +14,6 @@
 - We started developing the project before it was announced that design spec for Tinder Project will be provided. We were pretty far down the road already, so professor told us to submit our design via the "Yearbook design" assignment on Canvas to get approval, in piazza post @1290(https://piazza.com/class/k8eo96o9a0w1xn?cid=1290)
 - The Design TA, Emily, told us that we can continue to use our design via comment section under the "Yearbook design" assignment's submission. 
 - ![screnshot](./Screen%20Shot%202020-06-07%20at%206.12.44%20PM.png)
-- Brief note on how to use the game-room card: just use the mouse to either swipe right or left to choose yes or no. Swipe left for no, swipt right for yes.
-
-**3) After you cloned our project and trying to yarn/npm start, there might be a problem with ./homepage.css**
-- So I not sure what is wrong with the github commit or something we did wrong. The project cloned on Annie's side is using the file ./HomePage.css, and the project cloned on Andy's side is using ./homepage.css. That is a problem after our project suspend on glitch, when Andy try to transfer the file, he didn't transfer the file I wrote correctly, and we were not sure what we have done git gave us this problem. 
-- Therefore, if you are try to compile our project, it is giving a compile fail error with such message says ./homepage.css not found or ./HomePage.css not found, could you please fix the import file name on **src/HomePage.js** to whatever compiler is asking for? If there is no such problem on your side, please ignore this note. Thanks. 
 
 ----------------------------------------------------------------------------------------------------------------
 
@@ -36,7 +33,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
-In the project directory, you can run: (`yarn install` before all of these)
+In the project directory, you can run: (`yarn install` before all of the following)
 
 ### `yarn start`
 
@@ -46,14 +43,15 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
-### `node server.js` 
+### `node server.js`
 
-if you are on local after yarn start, do node server.js
+do it at the same time of year start
 
 ### `yarn test`
 
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
 
 ### `yarn build`
 
@@ -104,3 +102,4 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
