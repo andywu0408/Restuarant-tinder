@@ -169,10 +169,10 @@ const Styles = {
     width: '100vw',
     minHeight: '100vh',
     overflow: 'hidden',
-    padding: '20px 300px'
+    // padding: '20px 300px'
   },
   noCard: {
-    position: 'fixed', width: 300, padding: 24,
+    position: 'fixed', //width: 300, //padding: 24,
     bordeRadius: '1px',
     left: '50%',
     top: '50%',
@@ -181,16 +181,19 @@ const Styles = {
   },
   title: {
     fontFamily: 'Damion, sans-serif',
-    fontSize: 45,
+    marginTop: 10,
+    fontSize: "30pt",
     color: 'white',
     top: 0,
   },
   cardContainer: {
-    marginTop: 80,
+    marginTop: 40,
+    textAlign: 'center',
+    position: 'relative',
     // position: 'relative',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    // display: 'flex',
+    // justifyContent: 'center',
+    // alignItems: 'center',
 
   },
   titleContainer: {
