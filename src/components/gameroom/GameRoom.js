@@ -85,7 +85,8 @@ const GameRoom = () => {
         //TODO: the link in modal is hardcoded. Change it.
         //FIXME: User beside host can't enter room. Ask TA
         <div>
-          <div>The game has ended. Please close the browser tab. This game won't work if you continue playing! To play another game, remember to restart the server and host another game!</div>
+        
+          <div>The game has ended. Please close down the original host page tab. This game won't work if you continue playing! To play another game, remember to restart the server, close down all the tabs,  and host another game! (you need to do node server.js and yarn start again</div>
         </div>
       ),
       // onOk() { goToGameRoom() },
