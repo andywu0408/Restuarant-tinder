@@ -21,6 +21,7 @@
 **3) Other things to note **
 - We did not add "Yes/No" buttons in game room for user to press on. This is because the instruction initially told us to implement card swiping instead of buttons. When the instruction was changed to use button instead, we have already implemented our card swiping feature. We also got approval from TA Emily that we can stick with our game room design.
 - When you're grading locally, if anything does not work, please feel free to email us or text our teammate at 408-750-0852 if you need us to clarify anything. (The game should work perfectly)
+- The game will enter to the next round only when everyone finishes with the cards
 
 **HOW TO TEST/PLAY WITH OUR PROJECT**
 ----------------------------------------------------------------------------------------------------------------
