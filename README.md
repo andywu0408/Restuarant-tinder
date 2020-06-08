@@ -1,5 +1,5 @@
 Notes for grader: 
-Our project got suspended by Glitch at June 6th evening around 9pm, and immediate email was sent to Professor Amenta
+Our project got suspended by Glitch at June 6th evening around 9pm, and immediate email was sent to Professor Amenta and glitch support team. Glitch haven't got back to us yet. 
 ![screnshot](./Screen%20Shot%202020-06-06%20at%209.35.16%20PM.png)
 
 Notes for the team:
