@@ -97,7 +97,7 @@ const HomePage = props => {
       content: (
         //TODO: the link in modal is hardcoded. Change it.
         //FIXME: User beside host can't enter room. Ask TA
-        <a href={`${window.location.href}gameroom`}>{`${window.location.href}gameroom`}</a>
+        <a href={`${window.location.href}gameroom/${props.roomID}`}>{`${window.location.href}gameroom/${props.roomID}`}</a>
       ),
       // onOk() { goToGameRoom() },
       keyboard: true,
