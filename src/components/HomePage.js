@@ -7,9 +7,9 @@ import './homepage.css';
 //NOTE: This is the home screen
 const HomePage = props => {
   const [Restaurants, setRestaurants] = useState([]);
-  const [selectedFoodTags, setSelectedFoodTags] = useState(["all"]);
+  const [selectedFoodTags, setSelectedFoodTags] = useState(["o"]);
   const [selectedRestaurantTags, setSelectedRestaurantTags] = useState([]);
-  const [selectedLocation, setSelectedLocation] = useState("davis,ca");
+  const [selectedLocation, setSelectedLocation] = useState("");
 
   useEffect(() => {
     console.log("In homepage")
@@ -75,20 +75,20 @@ const HomePage = props => {
 
   const sendToServer = (restaurantList) => {
     console.log("Sending this to servers: ", restaurantList)
-    fetch('/restList', {
+    fetch('/restList',{
       method: 'POST',
       body: JSON.stringify({
         Restaurants: restaurantList
       }),
-      headers: { "Content-Type": "application/json" }
+      headers: {"Content-Type": "application/json"}
     })
-      .then(function (response) {
+    .then(function(response){
 
-        return response.json()
-      }).then(function (body) {
-        console.log(body);
+      return response.json()
+    }).then(function(body){
+      console.log(body);
 
-      });
+    });
   }
   const handleClick = () => {
     setupGame();
@@ -97,7 +97,7 @@ const HomePage = props => {
       content: (
         //TODO: the link in modal is hardcoded. Change it.
         //FIXME: User beside host can't enter room. Ask TA
-        <a href={`${window.location.href}gameroom/${props.roomID}`}>{`${window.location.href}gameroom/${props.roomID}`}</a>
+        <a href={`${window.location.href}gameroom`}>{`${window.location.href}gameroom`}</a>
       ),
       // onOk() { goToGameRoom() },
       keyboard: true,
@@ -163,7 +163,7 @@ const Styles = {
   modal: {
     backgroundColor: 'pink'
   }
-  
+
 }
 
 export default HomePage;
