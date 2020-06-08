@@ -1,6 +1,7 @@
 **IMPORTANT NOTES for GRADER**
 ----------------------------------------------------------------------------------------------------------------
 ----> p.s. thank you so much for a great quarter & grading our project!
+----> Please look at the "**Note on essential steps of HOW TO TEST/PLAY WITH OUR PROJECT LOCALLY:**" section for how to test our project locally. 
 
 **GRADING INFO**
 
