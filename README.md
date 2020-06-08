@@ -13,8 +13,8 @@
 - The Design TA, Emily, told us that we can continue to use our design via comment section under the "Yearbook design" assignment's submission. 
 - ![screnshot](./Screen%20Shot%202020-06-07%20at%206.12.44%20PM.png)
 
-**3) After you cloned our project and trying to yarn/npm start, there might be a problem with out ./homepage.css**
--- So I not sure what is wrong with the github commit or something we did wrong. The project cloned on Annie's side is using the file ./HomePage.css, and the project cloned on Andy's side is using ./homepage.css. That is a problem after our project suspend on glitch, when Andy try to transfer the file, he didn't transfer the file I wrote correctly, and we were not sure what we have done git gave us this problem. 
+**3) After you cloned our project and trying to yarn/npm start, there might be a problem with ./homepage.css**
+- So I not sure what is wrong with the github commit or something we did wrong. The project cloned on Annie's side is using the file ./HomePage.css, and the project cloned on Andy's side is using ./homepage.css. That is a problem after our project suspend on glitch, when Andy try to transfer the file, he didn't transfer the file I wrote correctly, and we were not sure what we have done git gave us this problem. 
 - Therefore, if you are try to compile our project, it is giving a compile fail error with this message, could you please fix the import file name on **src/HomePage.js** to whatever compiler is asking for? If there is no such problem on your side, please ignore this note. Thanks. 
 
 ----------------------------------------------------------------------------------------------------------------
