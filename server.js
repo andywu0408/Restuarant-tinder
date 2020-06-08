@@ -35,7 +35,7 @@ gameDB.get(cmd, function (err, val) {
 function createDB() {
   // explicitly declaring the rowIdNum protects rowids from changing if the 
   // table is compacted; not an issue here, but good practice
-  const cmd = 'CREATE TABLE TinderTable ( id INTEGER PRIMARY KEY, name TEXT, img_url TEXT, rating INTEGER, price TEXT, votes INTEGER, round INTEGER)';
+  const cmd = 'CREATE TABLE TinderTable ( id INTEGER PRIMARY KEY, name TEXT, img_url TEXT, rating INTEGER, price TEXT, votes INTEGER, totalVotes INTEGER, round INTEGER)';
   gameDB.run(cmd, function (err, val) {
     if (err) {
       console.log("Database creation failure", err.message);
@@ -63,6 +63,21 @@ function getDB() { //puts the db into dbObj
 
 }
 
+
+
+function dropDB() {
+  //delete the table dont need but maybe
+  // table is compacted; not an issue here, but good practice
+  const cmd = 'DROP TABLE TinderTable';
+  gameDB.run(cmd, function (err, val) {
+    if (err) {
+      console.log("DROP failure", err.message);
+    } else {
+      emptydb = 0;
+      console.log("DROP success");
+    }
+  });
+}
 app.post("/restList", async function (request, response, next) {
   //console.log("Server recieved",request.body);
   //newRestObj = request.body.businesses;
@@ -78,8 +93,8 @@ app.post("/restList", async function (request, response, next) {
 
 
 
-      cmd = "INSERT INTO TinderTable (name, img_url, rating, price, votes, round) VALUES (?,?, ?, ?, ?, ?) ";
-      gameDB.run(cmd, restName, imgurl, rating, price, 0, 1, function (err) {
+      cmd = "INSERT INTO TinderTable (name, img_url, rating, price, votes, totalVotes, round) VALUES (?,?, ?, ?, ?, ?, ?) ";
+      gameDB.run(cmd, restName, imgurl, rating, price, 0, 0, 1, function (err) {
         if (err) {
           console.log("DB insert error", err.message);
           next();
@@ -97,40 +112,242 @@ app.post("/restList", async function (request, response, next) {
 
   //calls getDB()
 
-  getDB();
+
 
 });
 
 
 let numClients = 0;
-let restIndex = 0;
 let players = []; //players array to store their ws
 let playersDone = 0;
-
+let round = 1;
 
 wss.on('connection', (ws) => {
 
   ws.id = numClients++;
   ws.restIndex = 0;
   players[ws.id] = ws;
-  console.log("connected");
+
+  console.log("new user joined, player number --", numClients)
 
   ws.on('message', (message) => {
+
     let cmdObj = JSON.parse(message);
     if (cmdObj.type == "test") {
+      getDB();
       let rest = {
         'type': "restlist",
         'name': dbObj
       }
-      // console.log("img url is: ", dbObj[0].img_url);
-      console.log("in ws.on");
+
       broadcast(JSON.stringify(rest));
     }
+
+
+
+    if (cmdObj.type == 'command' && cmdObj.selection == 0) { //vote no
+
+      if (players[ws.id].restIndex < dbObj.length - 1) {
+        players[ws.id].restIndex++;
+
+        /* let nextRest = {
+           'type' : 'nextRest',
+           'info' : dbObj[players[ws.id].restIndex]
+         }
+         players[ws.id].send((JSON.stringify(nextRest)));*/
+
+        /*update progress
+        let progressObj = {
+            'type' : "prog",
+            'votes': dbObj[players[ws.id].restIndex].votes,
+            'numPlayers': numClients
+          }
+        broadcast(JSON.stringify(progressObj));
+        */
+
+      }
+
+      else {
+        playersDone++;
+        if (playersDone == (numClients - 1)) {
+          //will be adding in code to increment the round and the votes in db
+          if (round == 3) {
+            let winIndex = getMaxChosen(dbObj);
+
+            let winner = {
+              'type': "final",
+              'value': dbObj[winIndex]
+            }
+
+            broadcast(JSON.stringify(winner))
+
+          }
+          players[ws.id].restIndex = 0;
+          console.log("players done is ", playersDone, " and num clients is ", numClients);
+          dbObj = removeandshuffle(dbObj);  //will remove 0 vote restaurants and shuffle them around
+          playersDone = 0;
+          round++;
+          console.log("next round's dbobj has length: ", dbObj.length);
+          let nextRound = {
+            'type': "next",
+            'value': dbObj,
+            'roundNum': round
+          } //send next round to everyone
+
+          console.log("round is: ", round);
+          broadcast(JSON.stringify(nextRound));
+
+        }
+      }
+    }
+
+    if (cmdObj.type == 'command' && cmdObj.selection == 1) {
+      console.log("user: ", ws.id, "voted yes on restaurant ", dbObj[players[ws.id].restIndex].name);
+      dbObj[players[ws.id].restIndex].votes++; //increment the number of times chosen
+      dbObj[players[ws.id].restIndex].totalVotes++;
+      console.log(dbObj[players[ws.id].restIndex].name, " has been chosen ", dbObj[players[ws.id].restIndex].votes, " times this round",
+        " and has ", dbObj[players[ws.id].restIndex].totalVotes, " cumulative votes");
+      /* check if one has been chosen 3 times will need to add*/
+      if (dbObj[players[ws.id].restIndex].votes == (numClients - 1)) {
+
+        console.log("You all chose: ", dbObj[players[ws.id].restIndex].name);
+        /*send msg of winner*/
+        let winner = {
+          'type': "final",
+          'value': dbObj[players[ws.id].restIndex]
+        }
+        broadcast(JSON.stringify(winner));
+
+      }
+      if (players[ws.id].restIndex < dbObj.length - 1) {
+        players[ws.id].restIndex++;
+
+        console.log("current restIndex for player ", ws.id, " is ", players[ws.id].restIndex);
+
+        /*let nextRest = {
+          'type': 'command',
+          'info': dbObj[players[ws.id].restIndex] //send next restaurant to respective client
+        }
+        
+        players[ws.id].send((JSON.stringify(nextRest)));*/
+        /*update progress
+        let progressObj = {
+          'type' : "prog",
+          'votes': dbObj[players[ws.id].restIndex].votes,
+          'numPlayers': numClients
+        }
+      broadcast(JSON.stringify(progressObj)); */
+      }
+
+      else {
+        playersDone++;
+        console.log("player number ", ws.id, "is done, number of players done is: ", playersDone, " number of clients is ",
+          numClients);
+        players[ws.id].restIndex = 0;
+
+        if (playersDone == (numClients - 1)) {
+          if (round == 3) {
+            let winIndex = getMaxChosen(dbObj);
+
+            let winner = {
+              'type': "final",
+              'value': dbObj[winIndex]
+            }
+
+            broadcast(JSON.stringify(winner))
+
+          }
+          console.log("players done is ", playersDone, " and num clients is ", numClients);
+          dbObj = removeandshuffle(dbObj);
+          playersDone = 0;
+          round++;
+          console.log("next round's dbobj has length: ", dbObj.length);
+          let nextRound = {
+            'type': "next",
+            'value': dbObj,
+            'roundNum': round
+          }
+          console.log("round is: ", round);
+          broadcast(JSON.stringify(nextRound)); //send next round of restaurants do this at end
+        }
+      }
+    }
+
+
   })
+  ws.on('close', () => {
+    numClients--;
+    players.slice(ws.id, 1);
+    console.log("a user disconnected now number of players is --", numClients);
+    if (numClients == 0 && (emptydb == 1)) {
+      console.log("host exited... dropping table");
+      dropDB();
+    }
+    else if (ws.id == 0) {
+      console.log("host exited... dropping table");
+      dropDB();
+    }
+  });
+
+
+
   ws.send('connected!')
 
 })
 
+function removeandshuffle(restaurantObject) {
+
+  //let newRests = [];
+  let x, y;
+
+  for (let i = 0; i < restaurantObject.length - 1; i++) {
+    if (restaurantObject[i].votes == 0) {
+      restaurantObject.splice(i, 1);
+    }
+  }
+
+  //shuffle them 
+
+  for (let i = restaurantObject.length - 1; i > 0; i--) {
+
+    x = Math.floor(Math.random() * (i + 1));
+    y = restaurantObject[i];
+    restaurantObject[i] = restaurantObject[x];
+    restaurantObject[x] = y;
+  }
+
+  for (let i = restaurantObject.length - 1; i > 0; i--) {
+    restaurantObject[i].votes = 0;
+  }
+
+  return restaurantObject
+}
+
+
+function getMaxChosen(restobj) {
+
+  let indexOfMax;
+  let max;
+
+  max = restobj[0].totalVotes;
+  indexOfMax = 0;
+  for (let i = 1; i < restobj.length - 1; i++) {
+
+    if (restobj[i].totalVotes > max) {
+      max = restobj[i].totalVotes;
+      indexOfMax = i;
+    }
+    else if (restobj[i].totalVotes == max) {
+      let newMaxIndex = Math.floor(Math.random() * (i - indexOfMax + 1)) + indexOfMax; //
+      indexOfMax = newMaxIndex;
+    }
+
+
+  }
+
+  return indexOfMax;
+
+}
 
 function broadcast(data) { //send next restaurant in db
   wss.clients.forEach((client) => { //clients is the set of connections and client is the set of 

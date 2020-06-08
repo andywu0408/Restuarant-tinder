@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TinderCard from 'react-tinder-card';
 import RestaurantCard from './RestaurantCard';
 import { message, Spin } from 'antd';
+import useForceUpdate from 'use-force-update';
 
 //FIXME: fetching yelp API + setting restaurant list + setting numCards should be done in
 // the selection screen(not created yet) and passed in as props. 
@@ -11,11 +12,13 @@ console.log(window.location.host + window.location.pathname)
 const url = "ws://localhost:5000/gameroom"
 const connection = new WebSocket(url);
 
+
 const GameRoom = () => {
 
-
+  const forceUpdate = useForceUpdate();
   const [Restaurants, setRestaurants] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  //const [shouldUpdateRound, updateRound] = useState(false);
 
   useEffect(() => {
     getRestaurants();
@@ -38,28 +41,58 @@ const GameRoom = () => {
       connection.send(JSON.stringify(test));
     };
 
+
+
     connection.onmessage = event => {
       console.log("in on message");
-      console.log(event.data)
-
       let msgObj = JSON.parse(event.data);
-      console.log(msgObj)
 
       if (msgObj.type == "restlist") {
         console.log(msgObj.name);
+        msgObj.name.reverse();
         setRestaurants([...msgObj.name]);
         setIsLoaded(true);
       }
+      else if (msgObj.type == "next") {
+        console.log("rest list sent to SetRestaurants is: ", msgObj.value);
+        msgObj.value.reverse();
+        setRestaurants([...msgObj.value]);
+        setIsLoaded(false);
+        setIsLoaded(true);
+        //msgObj.roundNum
+      }
+      else if (msgObj.type == "final") {
+
+        console.log("THE FINAL WINNER IS.... ", msgObj.value);
+        // TODO display winner somehow
+
+      }
+
+
     };
+
+
 
   });
   // TODO: if all users select this card, winner formed!
   const showSuccess = () => {
+    let cmdObj = {
+      "type": "command",
+      "selection": 1
+    }
     message.success('Successfuly liked the restaurant', 0.5);
+    connection.send(JSON.stringify(cmdObj));
+
   };
   // TODO: remove card from DB on failure
   const showFailure = () => {
+    let cmdObj = {
+      "type": "command",
+      "selection": 0
+    }
     message.error('Skipped!!!', 0.5);
+    connection.send(JSON.stringify(cmdObj));
+
   };
 
   const onSwipe = (direction) => {
@@ -80,7 +113,7 @@ const GameRoom = () => {
     >
       <div style={Styles.titleContainer}>
         <div style={Styles.title}>
-          Game Room: Round 3
+          Restaurant Tinder's Game Room
         </div>
       </div>
 
@@ -92,7 +125,7 @@ const GameRoom = () => {
                 name={restaurant.name}
                 rating={restaurant.rating} numReviews={restaurant.review_count}
                 priceRange={restaurant.price} picURL={restaurant.img_url}
-                numTimesChosen={0} />
+                numTimesChosen={restaurant.totalVotes} />
             </TinderCard>
           )))
           : (
@@ -114,10 +147,10 @@ const Styles = {
     width: '100vw',
     minHeight: '100vh',
     overflow: 'hidden',
-    // padding: '20px 300px'
+    padding: '20px 300px'
   },
   noCard: {
-    position: 'fixed', //width: 300, //padding: 24,
+    position: 'fixed', width: 300, padding: 24,
     bordeRadius: '1px',
     left: '50%',
     top: '50%',
@@ -125,20 +158,17 @@ const Styles = {
     color: 'white'
   },
   title: {
-    fontFamily: 'Damion, sans-serif',
-    marginTop: 10,
-    fontSize: "30pt",
+    // fontFamily: 'Damion, sans-serif',
+    fontSize: 45,
     color: 'white',
     top: 0,
   },
   cardContainer: {
-    marginTop: 40,
-    textAlign: 'center',
-    position: 'relative',
+    marginTop: 80,
     // position: 'relative',
-    // display: 'flex',
-    // justifyContent: 'center',
-    // alignItems: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
 
   },
   titleContainer: {
