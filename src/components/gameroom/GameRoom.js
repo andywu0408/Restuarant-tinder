@@ -132,10 +132,12 @@ const Styles = {
   },
   cardContainer: {
     marginTop: 80,
+    textAlign: 'center',
+    position: 'relative',
     // position: 'relative',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    // display: 'flex',
+    // justifyContent: 'center',
+    // alignItems: 'center',
 
   },
   titleContainer: {

@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from 'antd';
+import { faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faIgloo } from '@fortawesome/free-solid-svg-icons'
 
 const { Meta } = Card;
 
@@ -12,44 +16,59 @@ const RestaurantCard = props => {
     priceRange,
     numTimesChosen,
   } = props;
-  console.log("pic url is: ", picURL);
+
+  const getStars = () => {
+    console.log("In getSTars()...")
+    let hasDecimal = (rating - Math.floor(rating)) !== 0;
+    let stars = [];
+
+    let temp = Math.floor(rating)
+
+    for (let i = 0; i < temp; i++) {
+
+      stars.push(faStar);
+    }
+    if (hasDecimal) {
+      stars.push(faStarHalfAlt)
+    }
+    console.log("Stars[]= " + stars)
+    return (
+
+      <div>
+        {stars.map(e => (
+          <FontAwesomeIcon icon={e} />
+        ))}
+      </div>
+    )
+  }
   return (
     <Card
       hoverable
-      headStyle={{ backgroundColor: 'white' }}
-      bodyStyle={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
       style={{
-        position: 'fixed', width: 300, padding: 24, height: 500,
-        bordeRadius: '1px',
-        left: '50%',
-        top: '50%',
-        transform: 'translate(-50%, -50%)'
+        width: 350, margin: 'auto', position: 'absolute', marginLeft: 'auto',
+        marginRight: 'auto',
+        left: 0,
+        right: 0,
+        textAlign: 'center'
       }}
-      extra={
-        <div style={{ fontSize: 14 }}>
-          Chosen {numTimesChosen} Times!
-        </div>}
-      cover={<img style={{ height: 200, objectFit: 'contain' }} alt="example" src={picURL} />}
+      cover={<img style={{ objectFit: 'cover', height: 350 }} alt="example" src={picURL} />}
     >
       <Meta
         title={
-          <div
-            style={{
-              color: 'red', fontSize: 14, whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              maxWidth: 280
-            }}
-          >
+          <div style={{
+            fontSize: 24, fontWeight: 'bolder', whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis'
+          }}>
             {name}
-          </div>
-        }
+          </div>}
         description={
-          <div>
-            <h3 style={{ fontSize: 12 }}>Rating: {rating}</h3>
-            <h3 style={{ fontSize: 12 }}>Number of Reviews: {numReviews}</h3>
-            <h3 style={{ fontSize: 12 }}>Price Range: {priceRange}</h3>
+          <div style={{ fontSize: 20 }}>
+            <div>{getStars()}</div>
+            <div>Price: {priceRange}</div>
+            <div>Chosen {numTimesChosen} time(s)!</div>
           </div>
+
         }
       />
     </Card>
