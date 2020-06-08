@@ -33,7 +33,9 @@
 ----------------------------------------------------------------------------------------------------------------
 **setup**
   - First, clone the project from github, and then in the project directory, do `yarn install` to install all dependencies listed in package.json. (or you can use 'npm' as well)
+  
 **starting the project locally**
+
   - Second, `$ node server.js` to start the server. Make sure that after you did this command, the console says, **No database file - creating one** If this is not displaying, please make sure that you closed all the tabs or any other servers you forgot to close. (We drop the db when all players/host quit, so it is essential that no server/localhost is active at the time of starting).     --> the game won't work as expected if you don't see the console log statement above and continue to play.
   - Third, `yarn start` as long as you have all the packages installed, and make sure theres no other servers are running or data base files. You should be directed to browser and see the host page with search control.
   - Fourth, after selecting all the search selections, click start game, please make sure you open the gameroom link on the homepage of our project in a **new tab** instead of just clicking on it and directing to it. Make sure homepage does not close, and it stays there during the game time. **The host page must be active throughout the game play, it can't be refreshed or closed down, or else our server will drop the database and stop the game. Due to the limited scope of our project requirement/time, we can't handle multiple games and a game must end before a new one can start. Also host page must stay active)
