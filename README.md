@@ -1,7 +1,16 @@
-Notes for grader: 
-
-Our project got suspended by Glitch at June 6th evening around 9pm, and immediate email was sent to Professor Amenta and glitch support team. Glitch haven't got back to us yet. 
+Important notes for grader: 
+1) Why are we submitting this github repo instead of a glitch project?
+- because our project got suspended by Glitch at June 6th evening around 9pm for "Violating Terms of Service". We don't have access to our code/project on glitch anymore and switeched back to developing locally.
+- We notified the professor via both email and piazza post @1733 (https://piazza.com/class/k8eo96o9a0w1xn?cid=1733)
+- Professor gave us permission to submit a github link instead via the email reply. 
+- The glitch project is still suspended as of 6/7/2020 6PM. Project link: https://tinder-project.glitch.me/
 ![screnshot](./Screen%20Shot%202020-06-06%20at%209.35.16%20PM.png)
+
+2) Why is our design different from Design Spec?
+- We started developing the project before it was announced that design spec for Tinder Project will be provided. We were pretty far down the road already, so professor told us to submit our design via the "Yearbook design" assignment on Canvas to get approval, in piazza post @1290(https://piazza.com/class/k8eo96o9a0w1xn?cid=1290)
+- The Design TA, Emily, told us that we can continue to use our design via comment section under the "Yearbook design" assignment's submission. 
+
+
 
 Notes for the team:
 - Make sure you have either "yarn" or "npm" installed (these are package managers)
