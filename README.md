@@ -37,4 +37,4 @@
 - To start the project locally
 - 1. run "node server.js" to start the server
 - 2. run "yarn start" or "npm start" in terminal (make sure you do this in the project directory)
-** MAKE SURE you restart the server each time so the DB will be dropped/created correctly **
+** MAKE SURE you close the original "host" tab (original homepage) and restart the server each time so the DB will be dropped/created correctly **
