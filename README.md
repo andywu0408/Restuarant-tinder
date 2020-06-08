@@ -1,4 +1,4 @@
-**Important notes for grader:**      p.s. thank you so much for a great quarter & grading our project!
+**Important notes for grader:** ----> p.s. thank you so much for a great quarter & grading our project!
 
 **1) Why are we submitting this github repo instead of a glitch project?**
 - because our project got **suspended** by Glitch at June 6th evening around 9pm for "Violating Terms of Service" for unknown reasons. We don't have access to our code/project on glitch anymore and switeched back to developing locally.
