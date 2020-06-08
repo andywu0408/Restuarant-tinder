@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Modal } from 'antd';
 import SearchControl from '../SearchControl';
 import LocSearchBar from './LocSearchBar';
-import './HomePage.css';
+import './homepage.css';
 
 //NOTE: This is the home screen
 const HomePage = props => {
