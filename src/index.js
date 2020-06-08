@@ -6,9 +6,6 @@ import GameRoom from './components/gameroom/GameRoom';
 import { BrowserRouter } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import * as serviceWorker from './serviceWorker';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faIgloo } from '@fortawesome/free-solid-svg-icons'
 
 const generateRoomID = length => {
   var result = '';
