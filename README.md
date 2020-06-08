@@ -23,12 +23,12 @@
 - When you're grading locally, if anything does not work, please feel free to email us or text our teammate at 408-750-0852 if you need us to clarify anything. (The game should work perfectly)
 - The game will enter to the next round only when everyone finishes with the cards
 - **Note on essential steps of HOW TO TEST/PLAY WITH OUR PROJECT:**
-  - First, clone the project from github, and then `yarn install` make sure everything is installed, including the font-awesone packages. 
-  - Second, `$ node server.js` to start the server. Make sure that after you did this command, the console says, **No database file - creating one** If this is not displayed, please make sure you close all the tabs or any other servers you forgot to close. 
+  - First, clone the project from github, and then `yarn install` to make sure everything is installed, including the font-awesone packages. 
+  - Second, `$ node server.js` to start the server. Make sure that after you did this command, the console says, **No database file - creating one** If this is not displaying, please make sure that you closed all the tabs or any other servers you forgot to close. 
   - Third, `yarn start` as long as you have all the packages installed, and make sure theres no other servers are running or data base files. It should be fine to run. If there is any errors, please let us know. 
-  - Fourth, make sure you open the link that is diplayed the homepage of our project in a **new tab** instead of just clicking on it. Make sure homepage does not close, and it stays there during the game time. 
+  - Fourth, make sure you open the gameroom link on the homepage of our project in a **new tab** instead of just clicking on it. Make sure homepage does not close, and it stays there during the game time. 
   - Fifth, the game will enter to the next round only when everyone finishes with swiping cards. When a card swiped right by everyone, a message will pop up to display the winner. 
-  - Sixth, if you want to start a new game, make sure you close all of the servers and new tab, and then repeat from the first step. 
+  - Sixth, if you want to start a new game, make sure you closed all of the servers and new tabs, and then repeat from the first step. 
 ----------------------------------------------------------------------------------------------------------------
 
 
