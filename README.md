@@ -1,3 +1,6 @@
+Notes for grader: 
+Our project got suspended by Glitch at June 6th evening around 9pm, and immediate email was sent to Professor Amenta
+![screnshot]./Screen Shot 2020-06-06 at 9.35.16 PM.png
 Notes for the team:
 - Make sure you have either "yarn" or "npm" installed (these are package managers)
 - If this is your first time cloning the project to your local env, make sure you do "yarn install" or "npm install" first to download all the dependencies.
