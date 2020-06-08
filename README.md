@@ -1,9 +1,10 @@
-**Important notes for grader:**
+**Important notes for grader:**      p.s. thank you so much for a great quarter & grading our project!
 
 **1) Why are we submitting this github repo instead of a glitch project?**
-- because our project got **suspended** by Glitch at June 6th evening around 9pm for "Violating Terms of Service". We don't have access to our code/project on glitch anymore and switeched back to developing locally.
+- because our project got **suspended** by Glitch at June 6th evening around 9pm for "Violating Terms of Service" for unknown reasons. We don't have access to our code/project on glitch anymore and switeched back to developing locally.
 - We notified the professor via both email and piazza post @1733 (https://piazza.com/class/k8eo96o9a0w1xn?cid=1733)
 - Professor gave us permission to submit a github link instead via the email reply. 
+- We emailed Glitch support but they still haven't gotten back to us :(
 - The glitch project is still suspended as of 6/7/2020 6PM. Project link: https://tinder-project.glitch.me/
 ![screnshot](./Screen%20Shot%202020-06-06%20at%209.35.16%20PM.png)
 
