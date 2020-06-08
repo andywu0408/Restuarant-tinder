@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import TinderCard from 'react-tinder-card';
 import RestaurantCard from './RestaurantCard';
 import { message, Spin } from 'antd';
+import { Button, Modal } from 'antd';
 import useForceUpdate from 'use-force-update';
 
 //FIXME: fetching yelp API + setting restaurant list + setting numCards should be done in
 // the selection screen(not created yet) and passed in as props. 
 // home screen -> selection screen -> gameRoom
 
-console.log(window.location.host+window.location.pathname)
+console.log(window.location.host + window.location.pathname)
 const url = "ws://localhost:5000/gameroom"
 const connection = new WebSocket(url);
 
@@ -18,6 +19,7 @@ const GameRoom = () => {
   const forceUpdate = useForceUpdate();
   const [Restaurants, setRestaurants] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [round, setRound] = useState(1);
   //const [shouldUpdateRound, updateRound] = useState(false);
 
   useEffect(() => {
@@ -31,54 +33,73 @@ const GameRoom = () => {
 
   useEffect(() => {
 
-  connection.onopen = () => {
-    console.log("opened web socket")
-    //connection.send(JSON.stringify({"type": "helloHost"}));
-    let test = {
-      'type' : "test",
-      'num': "1001"
-    }
-    connection.send(JSON.stringify(test));
-  };
+    connection.onopen = () => {
+      console.log("opened web socket")
+      //connection.send(JSON.stringify({"type": "helloHost"}));
+      let test = {
+        'type': "test",
+        'num': "1001"
+      }
+      connection.send(JSON.stringify(test));
+    };
 
 
 
-  connection.onmessage = event => {
-    console.log("in on message");
-    let msgObj = JSON.parse(event.data);
-    
-    if(msgObj.type == "restlist")  {
-      console.log(msgObj.name);
-      msgObj.name.reverse();
-      setRestaurants([...msgObj.name]);
-      setIsLoaded(true);
-    }
-    else if(msgObj.type == "next"){
-      console.log("rest list sent to SetRestaurants is: ", msgObj.value);
-      msgObj.value.reverse();
-      setRestaurants([...msgObj.value]);
-      setIsLoaded(false);
-      setIsLoaded(true);
-      //msgObj.roundNum
-    }
-    else if(msgObj.type == "final") {
+    connection.onmessage = event => {
+      console.log("in on message");
+      let msgObj = JSON.parse(event.data);
 
-      console.log("THE FINAL WINNER IS.... ", msgObj.value);
-      // TODO display winner somehow
+      if (msgObj.type == "restlist") {
+        console.log(msgObj.name);
+        msgObj.name.reverse();
+        setRestaurants([...msgObj.name]);
+        setIsLoaded(true);
+      }
+      else if (msgObj.type == "next") {
+        console.log("rest list sent to SetRestaurants is: ", msgObj.value);
+        msgObj.value.reverse();
+        setRestaurants([...msgObj.value]);
+        setIsLoaded(false);
+        setIsLoaded(true);
+        setRound(msgObj.roundNum);
+        //msgObj.roundNum
+      }
+      else if (msgObj.type == "final") {
 
-    }
+        console.log("THE FINAL WINNER IS.... ", msgObj.value);
+        // TODO display winner somehow
+        displayWinnder(msgObj.value)
+
+      }
+
+    };
 
 
-  };
 
+  });
 
-
-});
+  const displayWinnder = restaurant => {
+    Modal.info({
+      title: 'The winner restaurant is: ' + restaurant.name + " !!!",
+      content: (
+        //TODO: the link in modal is hardcoded. Change it.
+        //FIXME: User beside host can't enter room. Ask TA
+        <div>
+          <div>The game has ended. Please close the browser tab. This game won't work if you continue playing! To play another game, remember to restart the server and host another game!</div>
+        </div>
+      ),
+      // onOk() { goToGameRoom() },
+      keyboard: true,
+      width: '50%',
+      centered: true,
+      okText: 'cancel'
+    });
+  }
   // TODO: if all users select this card, winner formed!
   const showSuccess = () => {
     let cmdObj = {
       "type": "command",
-      "selection" :  1
+      "selection": 1
     }
     message.success('Successfuly liked the restaurant', 0.5);
     connection.send(JSON.stringify(cmdObj));
@@ -87,8 +108,8 @@ const GameRoom = () => {
   // TODO: remove card from DB on failure
   const showFailure = () => {
     let cmdObj = {
-      "type" : "command",
-      "selection" : 0
+      "type": "command",
+      "selection": 0
     }
     message.error('Skipped!!!', 0.5);
     connection.send(JSON.stringify(cmdObj));
@@ -113,7 +134,7 @@ const GameRoom = () => {
     >
       <div style={Styles.titleContainer}>
         <div style={Styles.title}>
-          Restaurant Tinder's Game Room
+          Game Room: Round # {round}
         </div>
       </div>
 
@@ -131,7 +152,7 @@ const GameRoom = () => {
           : (
             <div style={Styles.noCard}>
               <Spin size='large'>
-                <h1 style={Styles.noCard}>WAITING FOR GAME TO START...</h1>
+                <h1 style={Styles.noCard}>WAITING FOR ROUND TO START....</h1>
               </Spin>
             </div>
           )}
@@ -158,7 +179,7 @@ const Styles = {
     color: 'white'
   },
   title: {
-    // fontFamily: 'Damion, sans-serif',
+    fontFamily: 'Damion, sans-serif',
     fontSize: 45,
     color: 'white',
     top: 0,
