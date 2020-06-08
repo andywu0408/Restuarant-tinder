@@ -45,7 +45,7 @@ const RestaurantCard = props => {
     <Card
       hoverable
       style={{
-        width: 350, margin: 'auto', position: 'absolute', marginLeft: 'auto',
+        width: 270, margin: 'auto', position: 'absolute', marginLeft: 'auto',
         marginRight: 'auto',
         left: 0,
         right: 0,
