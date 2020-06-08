@@ -1,4 +1,6 @@
-**Important notes for grader:** ----> p.s. thank you so much for a great quarter & grading our project!
+**IMPORTANT NOTES for GRADER**
+----------------------------------------------------------------------------------------------------------------
+----> p.s. thank you so much for a great quarter & grading our project!
 
 **GRADING INFO**
 **1) Why are we submitting this github repo instead of a glitch project?**
