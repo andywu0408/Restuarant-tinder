@@ -1,4 +1,5 @@
 **Important notes for grader:**
+
 **1) Why are we submitting this github repo instead of a glitch project?**
 - because our project got **suspended** by Glitch at June 6th evening around 9pm for "Violating Terms of Service". We don't have access to our code/project on glitch anymore and switeched back to developing locally.
 - We notified the professor via both email and piazza post @1733 (https://piazza.com/class/k8eo96o9a0w1xn?cid=1733)
