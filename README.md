@@ -1,5 +1,3 @@
-**!!!!! This is MASTER please do not mess up with master do it on branch first**
-
 **Important notes for grader:** ----> p.s. thank you so much for a great quarter & grading our project!
 
 **1) Why are we submitting this github repo instead of a glitch project?**
