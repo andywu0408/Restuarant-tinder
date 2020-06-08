@@ -125,7 +125,7 @@ const Styles = {
     color: 'white'
   },
   title: {
-    // fontFamily: 'Damion, sans-serif',
+    fontFamily: 'Damion, sans-serif',
     fontSize: 45,
     color: 'white',
     top: 0,
