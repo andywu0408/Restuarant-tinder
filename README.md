@@ -1,27 +1,4 @@
-**Notes for grader:(Please Read)** ----> p.s. thank you so much for a great quarter & grading our project!
-
-**1) Why are we submitting this github repo instead of a glitch project?**
-- because our project got **suspended** by Glitch at June 6th evening around 9pm for "Violating Terms of Service" for unknown reasons. We don't have access to our code/project on glitch anymore and switeched back to developing locally.
-- We notified the professor via both email and piazza post @1733 (https://piazza.com/class/k8eo96o9a0w1xn?cid=1733)
-- Professor gave us permission to submit a github link instead via the email reply. 
-- We emailed Glitch support but they still haven't gotten back to us :(
-- The glitch project is still suspended as of 6/7/2020 6PM. Project link: https://tinder-project.glitch.me/
-![screnshot](./Screen%20Shot%202020-06-06%20at%209.35.16%20PM.png)
-
-**2) Why is our design different from Design Spec?**
-- We started developing the project before it was announced that design spec for Tinder Project will be provided. We were pretty far down the road already, so professor told us to submit our design via the "Yearbook design" assignment on Canvas to get approval, in piazza post @1290(https://piazza.com/class/k8eo96o9a0w1xn?cid=1290)
-- The Design TA, Emily, told us that we can continue to use our design via comment section under the "Yearbook design" assignment's submission. 
-- ![screnshot](./Screen%20Shot%202020-06-07%20at%206.12.44%20PM.png)
-- Brief note on how to use the game-room card: just use the mouse to either swipe right or left to choose yes or no. Swipe left for no, swipt right for yes.
-
-**3) After you cloned our project and trying to yarn/npm start, there might be a problem with ./homepage.css**
-- So I not sure what is wrong with the github commit or something we did wrong. The project cloned on Annie's side is using the file ./HomePage.css, and the project cloned on Andy's side is using ./homepage.css. That is a problem after our project suspend on glitch, when Andy try to transfer the file, he didn't transfer the file I wrote correctly, and we were not sure what we have done git gave us this problem. 
-- Therefore, if you are try to compile our project, it is giving a compile fail error with such message says ./homepage.css not found or ./HomePage.css not found, could you please fix the import file name on **src/HomePage.js** to whatever compiler is asking for? If there is no such problem on your side, please ignore this note. Thanks. 
-
-----------------------------------------------------------------------------------------------------------------
-
-
-**Notes for the team:**
+Notes for the team:
 - Make sure you have either "yarn" or "npm" installed (these are package managers)
 - If this is your first time cloning the project to your local env, make sure you do "yarn install" or "npm install" first to download all the dependencies.
 - To start the project locally and see it in browser, run "yarn start" or "npm start" in terminal (make sure you do this in the project directory)\
@@ -36,7 +13,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
-In the project directory, you can run: (`yarn install` before all of these)
+In the project directory, you can run:
 
 ### `yarn start`
 
@@ -45,10 +22,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
-
-### `node server.js` 
-
-if you are on local after yarn start, do node server.js
 
 ### `yarn test`
 
