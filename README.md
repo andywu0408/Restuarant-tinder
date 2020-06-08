@@ -1,7 +1,8 @@
 **Important notes for grader:** ----> p.s. thank you so much for a great quarter & grading our project!
 
+**GRADING INFO**
 **1) Why are we submitting this github repo instead of a glitch project?**
-- because our project got **suspended** by Glitch at June 6th evening around 9pm for "Violating Terms of Service" for unknown reasons. We don't have access to our code/project on glitch anymore and switeched back to developing locally.
+- because our project got **suspended** by Glitch at June 6th evening around 9pm for "Violating Terms of Service" for unknown reasons. We don't have access to our code/project on glitch anymore and switeched back to developing locally. IT IS A LOT OF CODE THAT WAS LOST! We started early and were on track to finish on time, but we had to rewrite huge chunk of our code again locally due to the glitch suspension.
 - We notified the professor via both email and piazza post @1733 (https://piazza.com/class/k8eo96o9a0w1xn?cid=1733)
 - Professor gave us permission to submit a github link instead via the email reply. 
 - We emailed Glitch support but they still haven't gotten back to us :(
@@ -13,6 +14,8 @@
 - The Design TA, Emily, told us that we can continue to use our design via comment section under the "Yearbook design" assignment's submission. 
 - ![screnshot](./Screen%20Shot%202020-06-07%20at%206.12.44%20PM.png)
 
+
+**HOW TO TEST/PLAY WITH OUR PROJECT**
 ----------------------------------------------------------------------------------------------------------------
 
 
