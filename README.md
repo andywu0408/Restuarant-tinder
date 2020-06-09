@@ -4,7 +4,7 @@
 
 ----> Please look at the "**Note on essential steps of HOW TO TEST/PLAY WITH OUR PROJECT LOCALLY:**" section for how to test our project locally. 
 
-----> The game should be able to work perfectly and meet all the project specs. If something is missing or not working, it is most likely error with the steps tester take when starting our project locally(for ex, closing down host tab while game is still in play, or not restarting server and closing all browser localhost tabs when playing new game.    **If needed, please feel free to email our team at chewu@ucdavis.edu, xaqin@ucdavis.edu or reach us directly via (408) 750 - 0852. Our team will check regulary and help clarify things ASAP**
+----> The game is functional and meets all the project specs. If something is missing or not working, it is most likely error with the steps tester take when starting our project locally(for ex, closing down host tab while game is still in play, or not restarting server and closing all browser localhost tabs when playing new game.    **If needed, please feel free to email our team at chewu@ucdavis.edu, xaqin@ucdavis.edu or reach us directly via (408) 750 - 0852. Our team will check regulary and help clarify things ASAP**
 ----------------------------------------------------------------------------------------------------------------
 
 **GRADING INFO**
