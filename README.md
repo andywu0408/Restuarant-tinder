@@ -3,6 +3,7 @@ Team Members: Che-An(Andy) Wu, Xiaoxiao(Annie) Qin, Tammer Mohamed
 ----------------------------------------------------------------------------------------------------------------
 **Introduction:**
 - Web app that gamifies the painful experience of picking a restaurant to eat at with friends. Similar to Tinder, users can invite their friends to the game room, and all of them can like(swipe left) or dislike(swipe right) on the restaurant cards until they reach a reasonable consensus!
+- Watch a quick demo on youtube! Link: https://www.youtube.com/watch?v=sRXuX_tjzx0&ab_channel=AnnieQin
 - Tech Stack: 
    - front-end: React.js, Javascript, CSS, HTML, Axios
    - back-end: Node.js, Express, REST APIs, Sqlite3, Websockets
